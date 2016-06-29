@@ -23,5 +23,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
+    //ButterKinfe注解类
     compile 'com.jakewharton:butterknife:8.1.0'
+    //圆形图片
+    compile 'de.hdodenhof:circleimageview:2.0.0'
 }

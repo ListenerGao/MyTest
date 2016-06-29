@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyTest</string>
+    <string name="userName">ListenerGao</string>
+    <string name="userEmail">hnthgys@gmail.com</string>
 </resources>
