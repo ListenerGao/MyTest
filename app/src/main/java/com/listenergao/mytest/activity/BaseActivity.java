@@ -6,23 +6,33 @@ import android.support.v7.app.AppCompatActivity;
 /**
  * Created by admin on 2016/6/21.
  */
-public class BaseActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        initView();
-        initData();
-    }
+public abstract class BaseActivity extends AppCompatActivity {
+    /**
+     * 得到布局文件
+     * @return
+     */
+    protected abstract int getLayoutResId();
 
     /**
      * 初始化界面
      */
-    public void initView() {};
-
+    protected abstract void initView();
 
     /**
      * 初始化数据
      */
-    public void initData() {};
+    protected abstract void initData();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getLayoutResId() != -1){
+            setContentView(getLayoutResId());
+        }
+        initView();
+        initData();
+    }
+
+
+
 }

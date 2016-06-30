@@ -6,6 +6,5 @@
     android:fitsSystemWindows="true"
     android:clipToPadding="true">
 
-    <include layout="@layout/head_layout"/>
 
 </LinearLayout>

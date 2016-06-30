@@ -4,6 +4,15 @@
     android:layout_height="50dp"
     android:background="@color/colorPrimary">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_title_head"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:visibility="gone"
+        android:src="@drawable/hacker"/>
+
     <ImageButton
         android:id="@+id/ib_arrow_left"
         android:layout_width="wrap_content"

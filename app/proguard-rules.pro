@@ -15,3 +15,8 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+#保持ButterKnife不被混淆
+-dontwarn butterknife.internal.**
+-keep class **$$ViewInjector { *; }
+-keepnames class * { @butterknife.InjectView *;}
