@@ -7,17 +7,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
-
 import com.listenergao.mytest.activity.BaseActivity;
 import com.listenergao.mytest.fragment.LeftDrawerFragment;
 import com.listenergao.mytest.fragment.MainFragment;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-
 
 public class MainActivity extends BaseActivity {
 
@@ -49,6 +45,7 @@ public class MainActivity extends BaseActivity {
     public void initView() {
         ButterKnife.bind(this);
         civ_title_head.setVisibility(View.VISIBLE);
+
     }
 
     @Override

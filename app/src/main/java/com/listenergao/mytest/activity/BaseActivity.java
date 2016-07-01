@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by admin on 2016/6/21.
+ * Created by hnthgys on 2016/6/21.
+ * 创建父类的Activity
  */
 public abstract class BaseActivity extends AppCompatActivity {
     /**
