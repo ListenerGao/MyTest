@@ -20,3 +20,10 @@
 -dontwarn butterknife.internal.**
 -keep class **$$ViewInjector { *; }
 -keepnames class * { @butterknife.InjectView *;}
+#保持OkHttp不被混淆
+#okhttp
+-dontwarn okhttp3.**
+-keep class okhttp3.**{*;}
+#okio
+-dontwarn okio.**
+-keep class okio.**{*;}

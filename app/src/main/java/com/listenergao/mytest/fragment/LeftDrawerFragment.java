@@ -20,4 +20,14 @@ public class LeftDrawerFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_left_menu,null);
         return view;
     }
+
+    @Override
+    public void initView() {
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
 }
