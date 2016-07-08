@@ -120,7 +120,7 @@ public class OkHttpManager {
                         sendSuccessResultCallback(string,callback);
                     }else {
                         Object o = mGson.fromJson(string, callback.mType);
-                        callback.onSuccess(o);
+                        sendSuccessResultCallback(o,callback);
                     }
                 }catch (IOException e){
                     sendFailedStringCallback(response.request(),e,callback);

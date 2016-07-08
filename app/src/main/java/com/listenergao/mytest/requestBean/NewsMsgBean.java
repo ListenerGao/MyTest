@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by admin on 2016/7/7.
  */
-public class NewMesgBean {
+public class NewsMsgBean {
 
     /**
      * date : 20160707
@@ -26,7 +26,7 @@ public class NewMesgBean {
 
     @Override
     public String toString() {
-        return "NewMesgBean{" +
+        return "NewsMsgBean{" +
                 "date='" + date + '\'' +
                 ", stories=" + stories +
                 ", top_stories=" + top_stories +
