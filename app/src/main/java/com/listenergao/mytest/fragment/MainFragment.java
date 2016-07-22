@@ -2,6 +2,7 @@ package com.listenergao.mytest.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,11 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.data.NewsAdapter;
-import com.listenergao.mytest.data.OkHttpManager;
+import com.listenergao.mytest.data.TopImgsPagerAdapter;
 import com.listenergao.mytest.requestBean.NewsMsgBean;
+import com.listenergao.mytest.utils.OkHttpManager;
 import com.listenergao.mytest.utils.UiUtils;
 import com.orhanobut.logger.Logger;
 
@@ -34,6 +37,10 @@ public class MainFragment extends BaseFragment {
     RecyclerView recycleView;
     @BindView(R.id.swipe_container)
     SwipeRefreshLayout swipeContainer;
+    @BindView(R.id.top_imgs)
+    ViewPager topImgs;
+    @BindView(R.id.msg_title)
+    TextView msgTitle;
 
     private NewsMsgBean mNewsData;
     private NewsAdapter adapter;
@@ -66,7 +73,7 @@ public class MainFragment extends BaseFragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (!isRefreshing){
+                if (!isRefreshing) {
                     isRefreshing = true;
                     requestData();
                 }
@@ -79,7 +86,7 @@ public class MainFragment extends BaseFragment {
         requestData();
     }
 
-    private void requestData(){
+    private void requestData() {
         swipeContainer.setRefreshing(true); //显示刷新进度条
         OkHttpManager.getAsyn("http://news-at.zhihu.com/api/4/news/latest", new OkHttpManager.ResultCallback<NewsMsgBean>() {
 
@@ -96,6 +103,11 @@ public class MainFragment extends BaseFragment {
                 isRefreshing = false;
                 Logger.d(response);
                 mNewsData = response;
+                List<NewsMsgBean.TopStoriesBean> top_stories = mNewsData.getTop_stories();
+                TopImgsPagerAdapter pagerAdapter = new TopImgsPagerAdapter(UiUtils.getContext(),top_stories);
+                topImgs.setAdapter(pagerAdapter);
+
+
                 adapter = new NewsAdapter(UiUtils.getContext(), mNewsData.getStories());
                 recycleView.setAdapter(adapter);
             }

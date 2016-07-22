@@ -11,12 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/top_imgs"
+                android:layout_width="match_parent"
+                android:layout_height="220dp">
+
+            </android.support.v4.view.ViewPager>
+
+        <TextView
+            android:id="@+id/msg_title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:text="今日新闻"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
 
 
     </android.support.v4.widget.SwipeRefreshLayout>

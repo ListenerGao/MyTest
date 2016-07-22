@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.requestBean.NewsMsgBean;
+import com.listenergao.mytest.utils.OkHttpManager;
 
 import java.util.List;
 
@@ -38,7 +39,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     @Override
     public void onBindViewHolder(NewsViewHolder holder, int position) {
-        holder.tv_content.setText(mData.get(position).getTitle());
+        NewsMsgBean.StoriesBean bean = mData.get(position);
+        holder.tv_content.setText(bean.getTitle());
+        OkHttpManager.displayImage(bean.getImages().get(0),holder.iv_img);
     }
 
     @Override

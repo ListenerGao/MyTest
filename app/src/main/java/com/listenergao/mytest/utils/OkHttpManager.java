@@ -1,10 +1,14 @@
-package com.listenergao.mytest.data;
+package com.listenergao.mytest.utils;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
+import com.listenergao.mytest.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
@@ -171,6 +175,23 @@ public class OkHttpManager {
     /*********************************对外提供的方法*********************************/
     public static void getAsyn(String url,ResultCallback callback){
         getInstance()._getAsyn(url,callback);
+    }
+
+    /**
+     * 使用Picasso显示网络图片
+     * @param url
+     * @param view
+     */
+    public static void displayImage(String url, ImageView view) {
+        if (!TextUtils.isEmpty(url)) {
+            Picasso.with(UiUtils.getContext())
+                    .load(url)
+                    .placeholder(R.drawable.hacker)
+                    .error(R.drawable.hacker)
+                    .into(view);
+        } else {
+            view.setImageResource(R.drawable.hacker);
+        }
     }
 
 }
