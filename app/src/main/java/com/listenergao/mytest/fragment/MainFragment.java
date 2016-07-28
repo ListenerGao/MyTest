@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,10 +38,10 @@ public class MainFragment extends BaseFragment {
     RecyclerView recycleView;
     @BindView(R.id.swipe_container)
     SwipeRefreshLayout swipeContainer;
-    @BindView(R.id.top_imgs)
-    ViewPager topImgs;
-    @BindView(R.id.msg_title)
-    TextView msgTitle;
+
+    private ViewPager topImgs;
+//    @BindView(R.id.msg_title)
+//    TextView msgTitle;
 
     private NewsMsgBean mNewsData;
     private NewsAdapter adapter;
@@ -57,6 +58,8 @@ public class MainFragment extends BaseFragment {
     @Override
     public void initView() {
         recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //这是RecycleView默认的item动画
+        recycleView.setItemAnimator(new DefaultItemAnimator());
 //        NewsAdapter adapter = new NewsAdapter(UiUtils.getContext(), mNewsData.getStories());
 //        recycleView.setAdapter(adapter);
         //设置进度条的颜色主题，最多能设置四种 加载颜色是循环播放的，只要没有完成刷新就会一直循环，holo_blue_bright>holo_green_light>holo_orange_light>holo_red_light
@@ -104,15 +107,22 @@ public class MainFragment extends BaseFragment {
                 Logger.d(response);
                 mNewsData = response;
                 List<NewsMsgBean.TopStoriesBean> top_stories = mNewsData.getTop_stories();
-                TopImgsPagerAdapter pagerAdapter = new TopImgsPagerAdapter(UiUtils.getContext(),top_stories);
-                topImgs.setAdapter(pagerAdapter);
-
 
                 adapter = new NewsAdapter(UiUtils.getContext(), mNewsData.getStories());
                 recycleView.setAdapter(adapter);
+                setHeader(recycleView);
+
+                TopImgsPagerAdapter pagerAdapter = new TopImgsPagerAdapter(UiUtils.getContext(),top_stories);
+                topImgs.setAdapter(pagerAdapter);
             }
 
         });
+    }
+
+    private void setHeader(RecyclerView recycleView) {
+        View header = LayoutInflater.from(getContext()).inflate(R.layout.news_header, recycleView, false);
+        topImgs = (ViewPager) header.findViewById(R.id.top_imgs);
+        adapter.addHeaderView(header);
     }
 
 
