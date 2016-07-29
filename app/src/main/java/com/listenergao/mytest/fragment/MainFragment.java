@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.data.NewsAdapter;
@@ -25,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Request;
 
 /**
@@ -39,7 +39,11 @@ public class MainFragment extends BaseFragment {
     @BindView(R.id.swipe_container)
     SwipeRefreshLayout swipeContainer;
 
-    private ViewPager topImgs;
+    private ViewPager topImgViewPager;
+    /**
+     * ViewPager指示器
+     */
+    private CircleIndicator indicator;
 //    @BindView(R.id.msg_title)
 //    TextView msgTitle;
 
@@ -113,7 +117,9 @@ public class MainFragment extends BaseFragment {
                 setHeader(recycleView);
 
                 TopImgsPagerAdapter pagerAdapter = new TopImgsPagerAdapter(UiUtils.getContext(),top_stories);
-                topImgs.setAdapter(pagerAdapter);
+                topImgViewPager.setAdapter(pagerAdapter);
+                //将指示器与ViewPager关联
+                indicator.setViewPager(topImgViewPager);
             }
 
         });
@@ -121,7 +127,8 @@ public class MainFragment extends BaseFragment {
 
     private void setHeader(RecyclerView recycleView) {
         View header = LayoutInflater.from(getContext()).inflate(R.layout.news_header, recycleView, false);
-        topImgs = (ViewPager) header.findViewById(R.id.top_imgs);
+        topImgViewPager = (ViewPager) header.findViewById(R.id.top_imgs);
+        indicator = (CircleIndicator) header.findViewById(R.id.indicator);
         adapter.addHeaderView(header);
     }
 

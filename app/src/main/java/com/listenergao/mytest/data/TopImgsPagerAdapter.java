@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.requestBean.NewsMsgBean;
@@ -41,7 +42,9 @@ public class TopImgsPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = mLayoutInflater.inflate(R.layout.top_imgs_layout, null);
         ImageView iv_img = (ImageView) view.findViewById(R.id.iv_img);
+        TextView tv_content = (TextView) view.findViewById(R.id.tv_content);
         OkHttpManager.displayImage(mData.get(position).getImage(),iv_img);
+        tv_content.setText(mData.get(position).getTitle());
         container.addView(view);
         return view;
     }
