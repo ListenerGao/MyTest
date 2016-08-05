@@ -1,12 +1,14 @@
 package com.listenergao.mytest.data;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.requestBean.NewsMsgBean;
@@ -22,20 +24,25 @@ import butterknife.ButterKnife;
  */
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_NORMAL = 1;
     private Context mContext;
     private List<NewsMsgBean.StoriesBean> mData;
     private LayoutInflater mLayoutInflater;
     private View mHeaderView;
-    private static final int TYPE_HEADER = 0;
-    private static final int TYPE_NORMAL = 1;
 
 
-    public NewsAdapter(Context context, List<NewsMsgBean.StoriesBean> data){
+    public NewsAdapter(Context context, List<NewsMsgBean.StoriesBean> data) {
         this.mContext = context;
         this.mData = data;
         this.mLayoutInflater = LayoutInflater.from(context);
     }
 
+    /**
+     * 为RecycleView添加头布局
+     *
+     * @param headerView
+     */
     public void addHeaderView(View headerView) {
         this.mHeaderView = headerView;
     }
@@ -46,7 +53,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     @Override
     public int getItemCount() {
-        return mHeaderView == null ? mData.size():mData.size()+1;
+        return mHeaderView == null ? mData.size() : mData.size() + 1;
     }
 
     @Override
@@ -73,11 +80,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         int realPosition = getRealPosition(holder);
         NewsMsgBean.StoriesBean bean = mData.get(realPosition);
         holder.tv_content.setText(bean.getTitle());
-        OkHttpManager.displayImage(bean.getImages().get(0),holder.iv_img);
+        OkHttpManager.displayImage(bean.getImages().get(0), holder.iv_img);
+        //为CardView添加点击事件,来替代RecycleView的item点击事件
+        holder.item_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "点击了Item", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
      * 判断是否添加了头布局后,得到当前真实的位置
+     *
      * @param holder
      * @return
      */
@@ -86,17 +101,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         return mHeaderView == null ? position : position - 1;
     }
 
-    class NewsViewHolder extends RecyclerView.ViewHolder{
+    class NewsViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_content)
         TextView tv_content;
         @BindView(R.id.iv_img)
         ImageView iv_img;
+        @BindView(R.id.item_card)
+        CardView item_card;
 
         public NewsViewHolder(View itemView) {
             super(itemView);
             if (itemView == mHeaderView)
                 return;
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
