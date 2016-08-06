@@ -2,6 +2,7 @@ package com.listenergao.mytest.utils;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.ImageView;
 

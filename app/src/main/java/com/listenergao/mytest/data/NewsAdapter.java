@@ -1,6 +1,7 @@
 package com.listenergao.mytest.data;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.listenergao.mytest.R;
+import com.listenergao.mytest.activity.NewsDetails;
 import com.listenergao.mytest.requestBean.NewsMsgBean;
 import com.listenergao.mytest.utils.OkHttpManager;
 
@@ -26,6 +28,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_NORMAL = 1;
+    public static final String NEWS_ID = "NEWS_ID";
     private Context mContext;
     private List<NewsMsgBean.StoriesBean> mData;
     private LayoutInflater mLayoutInflater;
@@ -78,7 +81,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
         if (getItemViewType(position) == TYPE_HEADER) return;
         int realPosition = getRealPosition(holder);
-        NewsMsgBean.StoriesBean bean = mData.get(realPosition);
+        final NewsMsgBean.StoriesBean bean = mData.get(realPosition);
         holder.tv_content.setText(bean.getTitle());
         OkHttpManager.displayImage(bean.getImages().get(0), holder.iv_img);
         //为CardView添加点击事件,来替代RecycleView的item点击事件
@@ -86,6 +89,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext, "点击了Item", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, NewsDetails.class);
+                intent.putExtra(NEWS_ID,bean.getId());
+                mContext.startActivity(intent);
             }
         });
     }

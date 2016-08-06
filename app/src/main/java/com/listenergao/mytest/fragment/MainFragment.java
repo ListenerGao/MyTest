@@ -126,7 +126,7 @@ public class MainFragment extends BaseFragment {
                 mNewsData = response;
                 List<NewsMsgBean.TopStoriesBean> top_stories = mNewsData.getTop_stories();
 
-                adapter = new NewsAdapter(UiUtils.getContext(), mNewsData.getStories());
+                adapter = new NewsAdapter(getActivity(), mNewsData.getStories());
                 recycleView.setAdapter(adapter);
                 setHeader(recycleView);
 
