@@ -5,17 +5,24 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:clipToPadding="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <include
-            android:id="@+id/topbar"
-            layout="@layout/head_layout"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="48dp" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|center_horizontal"
+                android:text="Clock" />
+
+        </android.support.v7.widget.Toolbar>
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
@@ -25,7 +32,6 @@
 
     <!--侧滑菜单界面-->
     <FrameLayout
-        android:fitsSystemWindows="true"
         android:id="@+id/left_drawer"
         android:layout_width="240dp"
         android:background="@color/colorPrimaryDark"

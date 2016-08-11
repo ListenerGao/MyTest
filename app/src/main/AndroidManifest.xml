@@ -20,6 +20,10 @@
         </activity>
         <activity android:name=".activity.NewsDetails" >
         </activity>
+        <activity android:name=".activity.SettingsActivity"
+            android:theme="@style/ImageTranslucentTheme">
+
+        </activity>
     </application>
 
 </manifest>
