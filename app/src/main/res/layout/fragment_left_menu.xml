@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <LinearLayout
@@ -56,17 +57,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:weightSum="2"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <LinearLayout
                 android:id="@+id/settings"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
-                android:layout_height="match_parent">
+                android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="25dp"
@@ -88,9 +89,9 @@
             <LinearLayout
                 android:id="@+id/about_us"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
-                android:layout_height="match_parent">
+                android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="25dp"
