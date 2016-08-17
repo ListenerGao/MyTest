@@ -41,11 +41,6 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
 
     private ActionBarDrawerToggle mActionBarDrawerToggle;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     protected int getLayoutResId() {

@@ -1,84 +1,42 @@
-package com.listenergao.mytest.activity;
+package com.listenergao.mytest.service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.Service;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Environment;
+import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.listenergao.mytest.R;
-import com.listenergao.mytest.service.UpdateService1;
-import com.listenergao.mytest.update.UpdateService;
 import com.orhanobut.logger.Logger;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
 
 import java.io.File;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
- * Created by admin on 2016/8/11.
+ * Created by admin on 2016/8/13.
+ * 下载更新的服务
  */
-public class SettingsActivity extends BaseActivity {
-    private static final String TAG = "SettingsActivity";
+public class UpdateService1 extends Service {
     private static final String downloadUrl = "http://182.92.6.139:80/apk/school_2.17_117.apk";
-    @BindView(R.id.tv_version_number)
-    TextView mVersionNumber;
-    @BindView(R.id.tv_update)
-    TextView mUpdate;
-    @BindView(R.id.ll_version_update)
-    LinearLayout mVersionUpdate;
-    @BindView(R.id.ll_function_introduction)
-    LinearLayout mFunctionIntroduction;
-    @BindView(R.id.ll_help)
-    LinearLayout mHelp;
-
+    private static final String TAG ="UpdateService1" ;
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mNotificationManager;
 
     @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_settings;
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     @Override
-    protected void initView() {
-        ButterKnife.bind(this);
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
-
-    @OnClick({R.id.ll_version_update, R.id.ll_function_introduction, R.id.ll_help})
-    public void onClick(View view) {
-        Intent intent = new Intent(this, UpdateService1.class);
-        switch (view.getId()) {
-            case R.id.ll_version_update:
-
-                startService(intent);
-//                downloadApk();
-                break;
-            case R.id.ll_function_introduction:
-                Toast.makeText(this, "功能介绍", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.ll_help:
-//                Toast.makeText(this, "帮助", Toast.LENGTH_SHORT).show();
-                Intent update = new Intent(this, UpdateService.class);
-                update.putExtra("apkUrl",downloadUrl);
-                startService(update);
-                break;
-        }
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        downloadApk();
+        return super.onStartCommand(intent, flags, startId);
     }
 
     private void downloadApk() {
@@ -104,15 +62,18 @@ public class SettingsActivity extends BaseActivity {
                         if (nowProgress >= 100) {
                             mBuilder.setProgress(0,0,false);    //移除进度条
                             mBuilder.setContentTitle("下载完成,点击安装");
+                            stopSelf(); //停止服务
 
                         }else {
                             if (nowProgress > 0) {
                                 mBuilder.setDefaults(Notification.COLOR_DEFAULT);
                             }
-                            //注意:此方法在4.0以后版本才有用.如果需要支持早期版本,需使用RemoteViews来自定义视图
-                            mBuilder.setProgress(100,nowProgress,false);
-                            mBuilder.setContentTitle("正在下载...");
+                            if (nowProgress % 10 == 0){
+                                //注意:此方法在4.0以后版本才有用.如果需要支持早期版本,需使用RemoteViews来自定义视图
+                                mBuilder.setProgress(100,nowProgress,false);
+                                mBuilder.setContentTitle("正在下载...");
 //                            mBuilder.setOngoing(true);
+                            }
                         }
                         mNotificationManager.notify(1,mBuilder.build());
                         Logger.d("total = " + total +",progress = " +(progress * 100));
@@ -148,6 +109,5 @@ public class SettingsActivity extends BaseActivity {
     private String getApkName(String url) {
         return url.substring(url.lastIndexOf("/") + 1, url.length());
     }
-
 
 }
