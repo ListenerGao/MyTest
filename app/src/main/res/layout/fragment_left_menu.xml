@@ -44,14 +44,14 @@
         android:layout_marginTop="15dp">
 
         <TextView
-            android:id="@+id/tv1"
+            android:id="@+id/tv_popupwindow"
             style="@style/LeftDrawerFragment_textView"
-            android:text="个人中心1" />
+            android:text="PopupWindow" />
 
         <TextView
             android:id="@+id/tv2"
             style="@style/LeftDrawerFragment_textView"
-            android:layout_below="@id/tv1"
+            android:layout_below="@id/tv_popupwindow"
             android:text="个人中心2" />
 
 

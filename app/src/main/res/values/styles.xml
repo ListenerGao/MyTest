@@ -24,15 +24,23 @@
     <!--侧滑菜单界面 TextView的样式-->
     <style name="LeftDrawerFragment_textView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">30dp</item>
-        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:layout_margin">10dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:background">@color/darker_gray</item>
     </style>
 
     <style name="ImageTranslucentTheme" parent="AppTheme">
         <!--在Android 4.4之前的版本上运行，直接跟随系统主题-->
+    </style>
+
+    <!--设置底部弹出popupWindows的动画-->
+    <style name="anim_menu_bottombar">
+        <item name="android:windowEnterAnimation">@anim/menu_bottombar_in</item>
+        <item name="android:windowExitAnimation">@anim/menu_bottombar_out</item>
     </style>
 
 </resources>

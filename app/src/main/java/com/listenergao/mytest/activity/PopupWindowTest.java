@@ -1,0 +1,169 @@
+package com.listenergao.mytest.activity;
+
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.Toast;
+
+import com.listenergao.mytest.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+/**
+ * Created by admin on 2016/8/18.
+ */
+public class PopupWindowTest extends BaseActivity {
+    @BindView(R.id.civ_title_head)
+    CircleImageView civTitleHead;
+    @BindView(R.id.ib_arrow_left)
+    ImageButton ibArrowLeft;
+    @BindView(R.id.ib_drawer)
+    ImageButton ibDrawer;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.bt_pop_bottom_dismiss)
+    Button btPopBottom;
+    @BindView(R.id.bt_pop_center)
+    Button btPopCenter;
+    @BindView(R.id.bt_pop_bottom_no_dismiss)
+    Button btPopBottomNoDismiss;
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_test_popupwindow;
+    }
+
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
+
+        ibArrowLeft.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+
+    @OnClick({R.id.ib_arrow_left, R.id.bt_pop_bottom_dismiss, R.id.bt_pop_bottom_no_dismiss, R.id.bt_pop_center})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ib_arrow_left:
+                finish();
+                break;
+            case R.id.bt_pop_bottom_dismiss:
+                showBottomPopupWindow(view);
+                break;
+            case R.id.bt_pop_bottom_no_dismiss:
+                showBottomPopupWindow2(view);
+                break;
+            case R.id.bt_pop_center:
+                break;
+        }
+    }
+
+    /**
+     * 底部弹出PopupWindow
+     *
+     * 点击PopupWindow以外部分或点击返回键时,PopupWindow 会 消失
+     * @param view
+     */
+    public void showBottomPopupWindow(View view) {
+        //自定义PopupWindow的布局
+        View contentView = LayoutInflater.from(this).inflate(R.layout.popupwindow_layout, null);
+        final PopupWindow popupWindow = new PopupWindow(contentView);
+        //确定按钮点击事件
+        contentView.findViewById(R.id.tv_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PopupWindowTest.this, "点击了确定", Toast.LENGTH_SHORT).show();
+                popupWindow.dismiss();
+            }
+        });
+        //取消按钮点击事件
+        contentView.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+        //设置PopupWindow的宽和高,必须设置,否则不显示内容(也可用PopupWindow的构造方法设置宽高)
+        popupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+        //当需要点击返回键,或者点击空白时,需要设置下面两句代码.
+        //如果有背景，则会在contentView外面包一层PopupViewContainer之后作为mPopupView，如果没有背景，则直接用contentView作为mPopupView。
+        //而这个PopupViewContainer是一个内部私有类，它继承了FrameLayout，在其中重写了Key和Touch事件的分发处理
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));   //为PopupWindow设置透明背景.
+        popupWindow.setOutsideTouchable(false);
+        //设置PopupWindow进入和退出动画
+        popupWindow.setAnimationStyle(R.style.anim_menu_bottombar);
+        //设置PopupWindow显示的位置
+        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+    }
+
+    /**
+     * 底部弹出PopupWindow
+     *
+     * 点击PopupWindow以外部分或点击返回键时,PopupWindow 不会 消失
+     * @param view
+     */
+    public void showBottomPopupWindow2(View view) {
+        //自定义PopupWindow的布局
+        View contentView = LayoutInflater.from(this).inflate(R.layout.popupwindow_layout, null);
+        contentView.setFocusable(true);
+        contentView.setFocusableInTouchMode(true);
+        //创建PopupWindow对象,并在构造方法中设置宽高
+        final PopupWindow popupWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(false);
+
+        contentView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    popupWindow.dismiss();
+
+                    return true;
+                }
+                return false;
+            }
+        });
+        //确定按钮点击事件
+        contentView.findViewById(R.id.tv_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PopupWindowTest.this, "点击了确定", Toast.LENGTH_SHORT).show();
+                popupWindow.dismiss();
+            }
+        });
+        //取消按钮点击事件
+        contentView.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+        //设置PopupWindow进入和退出动画
+        popupWindow.setAnimationStyle(R.style.anim_menu_bottombar);
+        //设置PopupWindow显示的位置
+        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+
+    }
+
+}

@@ -26,6 +26,7 @@
 
         </activity>
 
+        <activity android:name=".activity.PopupWindowTest"></activity>
 
         <service android:name=".service.UpdateService1"></service>
         <service android:name=".update.UpdateService"></service>
