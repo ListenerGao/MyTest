@@ -16,7 +16,7 @@ import android.util.Log;
 import java.io.File;
 
 /**
- * Created by hfyd on 2016-8-6.
+ * Created by ListenerGao on 2016-8-6.
  */
 public class UpdateService extends Service {
 

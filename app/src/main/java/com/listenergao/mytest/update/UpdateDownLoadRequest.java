@@ -15,7 +15,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 
 /**
- * Created by hfyd on 2016-8-6.
+ * Created by ListenerGao on 2016-8-6.
  */
 public class UpdateDownLoadRequest implements Runnable {
 

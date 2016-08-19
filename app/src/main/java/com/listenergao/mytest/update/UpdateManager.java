@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * Created by hfyd on 2016-8-6.
+ * Created by ListenerGao on 2016-8-6.
  */
 public class UpdateManager {
 

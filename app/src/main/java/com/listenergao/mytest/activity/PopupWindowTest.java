@@ -1,17 +1,17 @@
 package com.listenergao.mytest.activity;
 
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.listenergao.mytest.R;
@@ -22,7 +22,7 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by admin on 2016/8/18.
+ * Created by ListenerGao on 2016/8/18.
  */
 public class PopupWindowTest extends BaseActivity {
     @BindView(R.id.civ_title_head)
@@ -71,6 +71,7 @@ public class PopupWindowTest extends BaseActivity {
                 showBottomPopupWindow2(view);
                 break;
             case R.id.bt_pop_center:
+                showCenterPopupWindow(view);
                 break;
         }
     }
@@ -79,11 +80,12 @@ public class PopupWindowTest extends BaseActivity {
      * 底部弹出PopupWindow
      *
      * 点击PopupWindow以外部分或点击返回键时,PopupWindow 会 消失
-     * @param view
+     * @param view  parent view
      */
     public void showBottomPopupWindow(View view) {
         //自定义PopupWindow的布局
         View contentView = LayoutInflater.from(this).inflate(R.layout.popupwindow_layout, null);
+        //初始化PopupWindow,并为其设置布局文件
         final PopupWindow popupWindow = new PopupWindow(contentView);
         //确定按钮点击事件
         contentView.findViewById(R.id.tv_confirm).setOnClickListener(new View.OnClickListener() {
@@ -110,23 +112,23 @@ public class PopupWindowTest extends BaseActivity {
         popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));   //为PopupWindow设置透明背景.
         popupWindow.setOutsideTouchable(false);
         //设置PopupWindow进入和退出动画
-        popupWindow.setAnimationStyle(R.style.anim_menu_bottombar);
+        popupWindow.setAnimationStyle(R.style.anim_popup_bottombar);
         //设置PopupWindow显示的位置
-        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
     }
 
     /**
      * 底部弹出PopupWindow
      *
      * 点击PopupWindow以外部分或点击返回键时,PopupWindow 不会 消失
-     * @param view
+     * @param view  parent view
      */
     public void showBottomPopupWindow2(View view) {
         //自定义PopupWindow的布局
         View contentView = LayoutInflater.from(this).inflate(R.layout.popupwindow_layout, null);
         contentView.setFocusable(true);
         contentView.setFocusableInTouchMode(true);
-        //创建PopupWindow对象,并在构造方法中设置宽高
+        //初始化PopupWindow对象,并为其设置宽高以及布局文件
         final PopupWindow popupWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(false);
@@ -159,10 +161,68 @@ public class PopupWindowTest extends BaseActivity {
         });
 
         //设置PopupWindow进入和退出动画
-        popupWindow.setAnimationStyle(R.style.anim_menu_bottombar);
-        //设置PopupWindow显示的位置
+        popupWindow.setAnimationStyle(R.style.anim_popup_bottombar);
+        //设置PopupWindow显示在底部
         popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+    }
 
+    /**
+     * 中间弹出PopupWindow
+     *
+     *  设置PopupWindow以外部分有一中变暗的效果
+     * @param view  parent view
+     */
+    public void showCenterPopupWindow(View view) {
+        View contentView = LayoutInflater.from(this).inflate(R.layout.popupwindow_layout, null);
+        final PopupWindow popupWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        TextView tvTitle = (TextView)contentView.findViewById(R.id.tv_title);
+        TextView tvConfirm = (TextView)contentView.findViewById(R.id.tv_confirm);
+        TextView tvCancel = (TextView)contentView.findViewById(R.id.tv_cancel);
+        tvTitle.setText("标为已读");
+        tvConfirm.setText("置顶公众号");
+        tvCancel.setText("取消关注");
+
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PopupWindowTest.this, "标为已读", Toast.LENGTH_SHORT).show();
+                popupWindow.dismiss();
+            }
+        });
+
+        tvConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PopupWindowTest.this, "置顶公众号", Toast.LENGTH_SHORT).show();
+                popupWindow.dismiss();
+            }
+        });
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PopupWindowTest.this, "取消关注", Toast.LENGTH_SHORT).show();
+                popupWindow.dismiss();
+            }
+        });
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        // 设置PopupWindow以外部分的背景颜色  有一种变暗的效果
+        final WindowManager.LayoutParams wlBackground = getWindow().getAttributes();
+        wlBackground.alpha = 0.5f;      // 0.0 完全不透明,1.0完全透明
+        getWindow().setAttributes(wlBackground);
+        // 当PopupWindow消失时,恢复其为原来的颜色
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                wlBackground.alpha = 1.0f;
+                getWindow().setAttributes(wlBackground);
+            }
+        });
+        //设置PopupWindow进入和退出动画
+        popupWindow.setAnimationStyle(R.style.anim_popup_centerbar);
+        // 设置PopupWindow显示在中间
+        popupWindow.showAtLocation(view,Gravity.CENTER,0,0);
 
     }
 

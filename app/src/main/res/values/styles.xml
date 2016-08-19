@@ -38,9 +38,14 @@
     </style>
 
     <!--设置底部弹出popupWindows的动画-->
-    <style name="anim_menu_bottombar">
-        <item name="android:windowEnterAnimation">@anim/menu_bottombar_in</item>
-        <item name="android:windowExitAnimation">@anim/menu_bottombar_out</item>
+    <style name="anim_popup_bottombar">
+        <item name="android:windowEnterAnimation">@anim/popup_bottombar_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_bottombar_out</item>
+    </style>
+    <!--设置中间弹出PopupWindow的动画-->
+    <style name="anim_popup_centerbar">
+        <item name="android:windowEnterAnimation">@anim/popup_centerbar_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_centerbar_out</item>
     </style>
 
 </resources>

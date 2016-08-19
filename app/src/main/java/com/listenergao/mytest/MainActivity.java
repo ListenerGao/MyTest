@@ -25,6 +25,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * Created by ListenerGao on 2016/7/1.
+ */
 public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener {
 
     //Fragment标识

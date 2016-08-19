@@ -15,7 +15,7 @@ import com.listenergao.mytest.utils.OkHttpManager;
 import java.util.List;
 
 /**
- * Created by admin on 2016/7/21.
+ * Created by ListenerGao on 2016/7/21.
  */
 public class TopImgsPagerAdapter extends PagerAdapter {
 

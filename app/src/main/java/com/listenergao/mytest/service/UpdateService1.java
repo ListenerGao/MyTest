@@ -19,7 +19,7 @@ import java.io.File;
 import okhttp3.Call;
 
 /**
- * Created by admin on 2016/8/13.
+ * Created by ListenerGao on 2016/8/13.
  * 下载更新的服务
  */
 public class UpdateService1 extends Service {

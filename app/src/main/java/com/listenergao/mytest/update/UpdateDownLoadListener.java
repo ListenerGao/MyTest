@@ -1,7 +1,7 @@
 package com.listenergao.mytest.update;
 
 /**
- * Created by hfyd on 2016-8-6.
+ * Created by ListenerGao on 2016-8-6.
  */
 public interface UpdateDownLoadListener {
 

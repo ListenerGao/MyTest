@@ -3,7 +3,7 @@ package com.listenergao.mytest.requestBean;
 import java.util.List;
 
 /**
- * Created by admin on 2016/7/7.
+ * Created by ListenerGao on 2016/7/7.
  */
 public class NewsMsgBean {
 

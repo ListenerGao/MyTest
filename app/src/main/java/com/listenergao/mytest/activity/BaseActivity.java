@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
 /**
- * Created by hnthgys on 2016/6/21.
+ * Created by ListenerGao on 2016/6/21.
  * 创建父类的Activity
  */
 public abstract class BaseActivity extends FragmentActivity {

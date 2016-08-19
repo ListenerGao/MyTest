@@ -1,10 +1,7 @@
 package com.listenergao.mytest.activity;
 
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.listenergao.mytest.R;
@@ -14,16 +11,17 @@ import com.listenergao.mytest.utils.OkHttpManager;
 import com.listenergao.mytest.utils.UiUtils;
 import com.orhanobut.logger.Logger;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Request;
 
 /**
+ * Created by ListenerGao on 2016/7/21.
+ *
  * 新闻详情页面
+ *
  */
+
 public class NewsDetails extends BaseActivity {
 
     private static final String TAG ="NewsDetails" ;

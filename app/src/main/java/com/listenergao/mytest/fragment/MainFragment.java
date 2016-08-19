@@ -36,7 +36,8 @@ import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Request;
 
 /**
- * Created by admin on 2016/6/22.
+ * Created by ListenerGao on 2016/6/22.
+ *
  */
 public class MainFragment extends BaseFragment {
 

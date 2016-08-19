@@ -25,7 +25,9 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
- * Created by admin on 2016/8/11.
+ * Created by ListenerGao on 2016/8/11.
+ *
+ * 设置页面
  */
 public class SettingsActivity extends BaseActivity {
     private static final String TAG = "SettingsActivity";
