@@ -114,7 +114,7 @@ public class PopupWindowTest extends BaseActivity {
         //设置PopupWindow进入和退出动画
         popupWindow.setAnimationStyle(R.style.anim_popup_bottombar);
         //设置PopupWindow显示的位置
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
     }
 
     /**
