@@ -3,7 +3,7 @@
     package="com.listenergao.mytest">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".BaseApplication"
@@ -19,17 +19,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.NewsDetails"></activity>
+        <activity android:name=".activity.NewsDetails" />
         <activity
             android:name=".activity.SettingsActivity"
-            android:theme="@style/ImageTranslucentTheme">
+            android:theme="@style/ImageTranslucentTheme"></activity>
+        <activity android:name=".activity.PopupWindowTest" />
+        <activity android:name=".activity.DownLoadActivity" />
 
-        </activity>
-
-        <activity android:name=".activity.PopupWindowTest"></activity>
-
-        <service android:name=".service.UpdateService1"></service>
-        <service android:name=".update.UpdateService"></service>
+        <service android:name=".service.UpdateService1" />
+        <service android:name=".update.UpdateService" />
+        <service
+            android:name=".download.DownloadService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

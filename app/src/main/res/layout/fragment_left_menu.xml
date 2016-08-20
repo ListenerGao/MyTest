@@ -49,10 +49,10 @@
             android:text="PopupWindow" />
 
         <TextView
-            android:id="@+id/tv2"
+            android:id="@+id/tv_download"
             style="@style/LeftDrawerFragment_textView"
             android:layout_below="@id/tv_popupwindow"
-            android:text="个人中心2" />
+            android:text="断点续传下载" />
 
 
         <LinearLayout

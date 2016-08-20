@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.listenergao.mytest.R;
+import com.listenergao.mytest.activity.DownLoadActivity;
 import com.listenergao.mytest.activity.PopupWindowTest;
 import com.listenergao.mytest.activity.SettingsActivity;
 
@@ -31,8 +32,8 @@ public class LeftDrawerFragment extends BaseFragment {
     LinearLayout mAboutUs;
     @BindView(R.id.tv_popupwindow)
     TextView tvPopupwindow;
-    @BindView(R.id.tv2)
-    TextView tv2;
+    @BindView(R.id.tv_download)
+    TextView tvDownload;
 
     @Nullable
     @Override
@@ -52,7 +53,7 @@ public class LeftDrawerFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.settings, R.id.about_us,R.id.tv_popupwindow, R.id.tv2})
+    @OnClick({R.id.settings, R.id.about_us,R.id.tv_popupwindow, R.id.tv_download})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.settings:     //设置页面
@@ -63,7 +64,8 @@ public class LeftDrawerFragment extends BaseFragment {
             case R.id.tv_popupwindow:   //PopupWindow测试页面
                 openActivity(getContext(), PopupWindowTest.class);
                 break;
-            case R.id.tv2:
+            case R.id.tv_download:  //断点续传下载
+                openActivity(getContext(), DownLoadActivity.class);
                 break;
         }
     }
