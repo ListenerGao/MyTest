@@ -2,6 +2,7 @@ package com.listenergao.mytest.download;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,10 +18,11 @@ import java.util.List;
  * 下载任务类
  */
 public class DownloadTask {
+    private static final String TAG ="DownloadTask" ;
     private Context mContext;
     private FileInfo mFileInfo;
     private ThreadDao mDao;
-    private int mFinished = 0;  //记录下载进度
+    private float mFinished = 0;  //记录下载进度
     public boolean isPause = false;  //是否暂停下载
 
     public DownloadTask(Context mContext, FileInfo mFileInfo) {
@@ -39,7 +41,7 @@ public class DownloadTask {
             threadInfo = threadInfos.get(0);
         }
         //创建子线程,开始下载
-        new DownloadThread(threadInfos.get(0)).start();
+        new DownloadThread(threadInfo).start();
     }
 
     /**
@@ -68,7 +70,7 @@ public class DownloadTask {
                 conn.setConnectTimeout(5000);
                 conn.setRequestMethod("GET");
                 //设置下载位置
-                int start = mThreadInfo.getStart() + mThreadInfo.getFinished();
+                int start = /*mThreadInfo.getStart() +*/ mThreadInfo.getFinished();
                 conn.setRequestProperty("Range","bytes="+start+"-"+mThreadInfo.getEnd());
                 //设置文件写入位置
                 File file  = new File(DownloadService.DOWNLOAD_PATH,mFileInfo.getFileName());
@@ -76,8 +78,9 @@ public class DownloadTask {
                 raf.seek(start);    //从指定位置写入   例如seek(10),将从第11个字节开始写入,跳过前面10个字节
                 //开始下载
                 Intent intent = new Intent(DownloadService.ACTION_UPDATE);
+                //获取一下载的进度
                 mFinished = mThreadInfo.getFinished();
-                if (conn.getResponseCode() == 206) {
+                if (conn.getResponseCode() == 206) {    //注意此处响应码应是206,因为上面设置了Range,表示下载的是其中的一部分
                     //读取数据
                     is = conn.getInputStream();
                     byte[] buffer = new byte[1024 * 4];
@@ -88,14 +91,21 @@ public class DownloadTask {
                         raf.write(buffer,0,length);
                         //将下载进度发送给Activity(使用广播)
                         mFinished += length;
+                        Log.d(TAG,"下载进度:" + mFinished + "---文件长度:" + mFileInfo.getLength() + "百分比:" + (int)(mFinished / mFileInfo.getLength() * 100));
+                        //此处需要注意,当使用int时,注意int值得范围
+                        int progress = (int) (mFinished / mFileInfo.getLength() * 100);
                         if (System.currentTimeMillis() - time > 500) {  //每隔500毫秒发送一次广播
                             time = System.currentTimeMillis();
-                            intent.putExtra("finished",mFinished * 100 / mFileInfo.getLength());  //以百分比的形式传递数据
+//                            progress = (int) (mFinished / mFileInfo.getLength() * 100);
+                            intent.putExtra("finished",progress);  //以百分比的形式传递数据
                             mContext.sendBroadcast(intent); //发送广播
+                        }else if (progress == 100) {
+                            intent.putExtra("finished",progress);
+                            mContext.sendBroadcast(intent);
                         }
                         //当下载暂停时,保存当前下载进度
                         if (isPause) {
-                            mDao.updateThread(mThreadInfo.getUrl(),mThreadInfo.getId(),mFinished);
+                            mDao.updateThread(mThreadInfo.getUrl(),mThreadInfo.getId(),(int)mFinished);
                             return;
                         }
                     }

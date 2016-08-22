@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -24,6 +24,7 @@ import butterknife.OnClick;
  * 实现断点续传下载功能
  */
 public class DownLoadActivity extends BaseActivity {
+    private static final String TAG = "DownLoadActivity";
     @BindView(R.id.tv_file_name)
     TextView tvFileName;
     @BindView(R.id.pb_progressBar)
@@ -86,6 +87,7 @@ public class DownLoadActivity extends BaseActivity {
             if (DownloadService.ACTION_UPDATE == intent.getAction()) {
                 int finished = intent.getIntExtra("finished",0);
                 pbProgressBar.setProgress(finished);
+                Log.d(TAG,"广播接收的下载进度:" + finished);
             }
         }
     };
