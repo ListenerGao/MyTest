@@ -78,7 +78,7 @@ public class DownloadTask {
                 raf.seek(start);    //从指定位置写入   例如seek(10),将从第11个字节开始写入,跳过前面10个字节
                 //开始下载
                 Intent intent = new Intent(DownloadService.ACTION_UPDATE);
-                //获取一下载的进度
+                //获取已下载的进度，如果第一次下载，就是0
                 mFinished = mThreadInfo.getFinished();
                 if (conn.getResponseCode() == 206) {    //注意此处响应码应是206,因为上面设置了Range,表示下载的是其中的一部分
                     //读取数据
@@ -92,14 +92,14 @@ public class DownloadTask {
                         //将下载进度发送给Activity(使用广播)
                         mFinished += length;
                         Log.d(TAG,"下载进度:" + mFinished + "---文件长度:" + mFileInfo.getLength() + "百分比:" + (int)(mFinished / mFileInfo.getLength() * 100));
-                        //此处需要注意,当使用int时,注意int值得范围
+                        //此处需要注意,当使用int时,注意int值的范围
                         int progress = (int) (mFinished / mFileInfo.getLength() * 100);
                         if (System.currentTimeMillis() - time > 500) {  //每隔500毫秒发送一次广播
                             time = System.currentTimeMillis();
-//                            progress = (int) (mFinished / mFileInfo.getLength() * 100);
+                            //progress = (int) (mFinished / mFileInfo.getLength() * 100);
                             intent.putExtra("finished",progress);  //以百分比的形式传递数据
                             mContext.sendBroadcast(intent); //发送广播
-                        }else if (progress == 100) {
+                        }else if (progress == 100) {    //防止time<500,而导致进度条显示不完整.
                             intent.putExtra("finished",progress);
                             mContext.sendBroadcast(intent);
                         }
