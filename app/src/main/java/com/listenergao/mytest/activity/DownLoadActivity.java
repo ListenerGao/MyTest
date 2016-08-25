@@ -11,6 +11,8 @@ import com.listenergao.mytest.R;
 import com.listenergao.mytest.data.FilesAdapter;
 import com.listenergao.mytest.download.DownloadService;
 import com.listenergao.mytest.download.FileInfo;
+import com.listenergao.mytest.utils.NotificationUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -27,6 +29,7 @@ public class DownLoadActivity extends BaseActivity {
     @BindView(R.id.lv_download)
     ListView mListView;
     private FilesAdapter mAdapter;
+    private NotificationUtils mNotificationUtils;
 
     /**
      * 更新UI的广播接收器
@@ -38,13 +41,18 @@ public class DownLoadActivity extends BaseActivity {
                 int finished = intent.getIntExtra("finished", 0);
                 int id = intent.getIntExtra("id", 0);
                 mAdapter.updateProgress(id, finished);
+                //更新Notification显示进度
+                mNotificationUtils.updateNotification(id,finished);
                 Log.d(TAG, "下载文件Id:" + id + "广播接收的下载进度:" + finished);
             }else if (DownloadService.ACTION_FINISH.equals(intent.getAction())){    //下载完成
-                //更新进度为0
                 FileInfo fileInfo = (FileInfo) intent.getSerializableExtra("fileInfo");
                 mAdapter.updateProgress(fileInfo.getId(),100);  //由于设置的1s发送广播一次,有可能在下载完成时进度条显示不完全
                 Toast.makeText(DownLoadActivity.this, fileInfo.getFileName()+"下载完毕", Toast.LENGTH_SHORT).show();
+                mNotificationUtils.cancelNotification(fileInfo.getId());
                 Log.d(TAG, fileInfo.getFileName()+"下载完毕");
+            }else if (DownloadService.ACTION_START.equals(intent.getAction())) {    //显示Notification
+                //显示Notification
+                mNotificationUtils.showNotification((FileInfo) intent.getSerializableExtra("fileInfo"));
             }
         }
     };
@@ -81,7 +89,10 @@ public class DownLoadActivity extends BaseActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction(DownloadService.ACTION_UPDATE);    //进度更新广播
         filter.addAction(DownloadService.ACTION_FINISH);    //下载完成广播
+        filter.addAction(DownloadService.ACTION_START);    //点击下载时的广播
         registerReceiver(mReceiver, filter);
+
+        mNotificationUtils = new NotificationUtils(this);
     }
 
     @Override

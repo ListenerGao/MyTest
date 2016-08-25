@@ -53,6 +53,10 @@ public class DownloadService extends Service {
                     task.download();
                     //将下载任务添加到下载任务集合中
                     mTasks.put(fileInfo.getId(), task);
+                    //发送开始下载的广播,用于显示Notification
+                    Intent intent = new Intent(DownloadService.ACTION_START);
+                    intent.putExtra("fileInfo",fileInfo);
+                    sendBroadcast(intent);
                     break;
             }
         }
