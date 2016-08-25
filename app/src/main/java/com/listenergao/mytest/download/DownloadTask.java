@@ -12,6 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -28,9 +30,10 @@ public class DownloadTask {
     private Context mContext;
     private FileInfo mFileInfo;
     private ThreadDao mDao;
-    private long mFinished = 0;  //记录下载进度
+    private float mFinished = 0;  //记录下载进度
     private int mThreadCount = 1;   //下载线程的数量,默认为1个线程下载
     private List<DownloadThread> mThreadList;   //线程集合,管理线程
+    private Timer mTimer = new Timer(); //定时器
 
     public DownloadTask(Context mContext, FileInfo mFileInfo, int ThreadCount) {
         this.mContext = mContext;
@@ -68,6 +71,19 @@ public class DownloadTask {
             //将下载线程添加到线程集合中,便于管理
             mThreadList.add(thread);
         }
+        //启动定时任务
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //发送更新进度的广播
+                int progress = (int) (mFinished / mFileInfo.getLength() * 100);
+                Intent intent = new Intent(DownloadService.ACTION_UPDATE);
+                intent.putExtra("finished", progress);  //以百分比的形式传递数据
+                Log.d(TAG,"mFinished:"+mFinished+"---mFileInfo.getLength()"+mFileInfo.getLength()+"--progress:"+progress);
+                intent.putExtra("id", mFileInfo.getId());    //文件id,用于判断是下载那个文件的进度
+                mContext.sendBroadcast(intent); //发送广播
+            }
+        }, 1000, 1000);   //延时1s执行,每隔1s执行一次
 
     }
 
@@ -91,6 +107,9 @@ public class DownloadTask {
 
             //下载完成时,删除线程信息
             mDao.deleteThread(mFileInfo.getUrl());
+
+            //取消定时器
+            mTimer.cancel();
         }
     }
 
@@ -128,7 +147,7 @@ public class DownloadTask {
                 raf = new RandomAccessFile(file, "rwd");
                 raf.seek(start);    //从指定位置写入   例如seek(10),将从第11个字节开始写入,跳过前面10个字节
                 //开始下载
-                Intent intent = new Intent(DownloadService.ACTION_UPDATE);
+//                Intent intent = new Intent(DownloadService.ACTION_UPDATE);
                 //累加已下载的进度，如果第一次下载，就是0
                 mFinished += mThreadInfo.getFinished();
                 if (conn.getResponseCode() == 206) {    //注意此处响应码应是206,因为上面设置了Range,表示下载的是其中的一部分
@@ -136,7 +155,6 @@ public class DownloadTask {
                     is = conn.getInputStream();
                     byte[] buffer = new byte[1024 * 4];
                     int length = -1;
-                    long time = System.currentTimeMillis();
                     while ((length = is.read(buffer)) != -1) {
                         //写入文件
                         raf.write(buffer, 0, length);
@@ -144,20 +162,15 @@ public class DownloadTask {
                         mFinished += length;    //累加整个文件下载进度
                         mThreadInfo.setFinished(mThreadInfo.getFinished() + length);    //累加每个线程下载进度
                         //此处需要注意,当使用int时,注意int值的范围
-                        int progress = (int) (mFinished * 100 / mFileInfo.getLength());
-                        Log.d(TAG, "下载进度:" + mFinished + "---文件长度:" + mFileInfo.getLength() + "--百分比:" + mFinished * 100 / mFileInfo.getLength() + "--progress:" + progress);
-                        if (System.currentTimeMillis() - time > 1000) {  //每隔1000毫秒发送一次广播
-                            time = System.currentTimeMillis();
-                            //progress = (int) (mFinished / mFileInfo.getLength() * 100);
-                            intent.putExtra("finished", progress);  //以百分比的形式传递数据
-                            intent.putExtra("id", mFileInfo.getId());    //文件id,用于判断是下载那个文件的进度
-                            mContext.sendBroadcast(intent); //发送广播
-                        }/*else if (progress == 100) {    //防止time<1000,而导致进度条显示不完整.
-                            intent.putExtra("finished",progress);
-                            intent.putExtra("id",mFileInfo.getId());    //文件id,用于判断是下载那个文件的进度
-                            mContext.sendBroadcast(intent);
-                            Log.d(TAG,"------progress:" +progress);
-                        }*/
+//                        int progress = (int) (mFinished * 100 / mFileInfo.getLength());
+//                        Log.d(TAG, "下载进度:" + mFinished + "---文件长度:" + mFileInfo.getLength() + "--百分比:" + mFinished * 100 / mFileInfo.getLength());
+//                        if (System.currentTimeMillis() - time > 1000) {  //每隔1000毫秒发送一次广播
+//                            time = System.currentTimeMillis();
+//                            //progress = (int) (mFinished / mFileInfo.getLength() * 100);
+//                            intent.putExtra("finished", progress);  //以百分比的形式传递数据
+//                            intent.putExtra("id", mFileInfo.getId());    //文件id,用于判断是下载那个文件的进度
+//                            mContext.sendBroadcast(intent); //发送广播
+//                        }
                         //当下载暂停时,保存当前下载进度
                         if (isPause) {
                             mDao.updateThread(mThreadInfo.getUrl(), mThreadInfo.getId(), mThreadInfo.getFinished());
