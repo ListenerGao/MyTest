@@ -15,11 +15,10 @@ public interface ThreadDao {
     void insertThread(ThreadInfo threadInfo);
 
     /**
-     * 删除线程信息(根据下载的url,以及线程Id(更精确,多线程下载))
+     * 删除线程信息(根据下载的url,将线程信息全部删除)
      * @param url
-     * @param threadId
      */
-    void deleteThread(String url,int threadId);
+    void deleteThread(String url);
 
     /**
      * 更新线程下载进度

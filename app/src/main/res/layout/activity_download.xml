@@ -3,52 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_file_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="28dp"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <ProgressBar
-        android:id="@+id/pb_progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
+    <ListView
+        android:id="@+id/lv_download"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="100"
-        android:layout_alignLeft="@+id/tv_file_name"
-        android:layout_alignStart="@+id/tv_file_name"
-        android:layout_below="@+id/tv_file_name"
-        android:layout_marginRight="40dp" />
-
-    <Button
-        android:id="@+id/bt_start"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="51dp"
-        android:text="下载"
-        android:layout_below="@+id/pb_progressBar"
-        android:layout_toRightOf="@+id/tv_file_name"
-        android:layout_toEndOf="@+id/tv_file_name"
-        android:layout_marginLeft="28dp"
-        android:layout_marginStart="28dp" />
-
-    <Button
-        android:id="@+id/bt_stop"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bt_start"
-        android:layout_toEndOf="@+id/bt_start"
-        android:layout_toRightOf="@+id/bt_start"
-        android:text="停止" />
-    />
+        android:layout_height="match_parent">
+    </ListView>
 
 </RelativeLayout>
