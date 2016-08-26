@@ -2,6 +2,9 @@ package com.listenergao.mytest.data;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +30,7 @@ import butterknife.ButterKnife;
 public class FilesAdapter extends BaseAdapter {
     private Context mContext;
     private List<FileInfo> mFileInfos;
+    private Messenger mMessenger;
 
     public FilesAdapter(Context mContext, List<FileInfo> mFileInfos) {
         this.mContext = mContext;
@@ -64,6 +68,15 @@ public class FilesAdapter extends BaseAdapter {
                     intent.setAction(DownloadService.ACTION_START);
                     intent.putExtra("fileInfo", mFileInfo);
                     mContext.startService(intent);
+
+//                    Message msg = new Message();
+//                    msg.what = DownloadService.MSG_START;
+//                    msg.obj = mFileInfo;
+//                    try {
+//                        mMessenger.send(msg);
+//                    } catch (RemoteException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             });
             holder.btStop.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +86,15 @@ public class FilesAdapter extends BaseAdapter {
                     intent.setAction(DownloadService.ACTION_STOP);
                     intent.putExtra("fileInfo", mFileInfo);
                     mContext.startService(intent);
+
+//                    Message msg = new Message();
+//                    msg.what = DownloadService.MSG_STOP;
+//                    msg.obj = mFileInfo;
+//                    try {
+//                        mMessenger.send(msg);
+//                    } catch (RemoteException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             });
             convertView.setTag(holder);
@@ -93,6 +115,10 @@ public class FilesAdapter extends BaseAdapter {
         FileInfo fileInfo = mFileInfos.get(id);
         fileInfo.setFinished(progress);
         notifyDataSetChanged();
+    }
+
+    public void setMessenger(Messenger messenger) {
+        this.mMessenger = messenger;
     }
 
 

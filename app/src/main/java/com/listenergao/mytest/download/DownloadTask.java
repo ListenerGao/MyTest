@@ -2,6 +2,9 @@ package com.listenergao.mytest.download;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.util.Log;
 
 import java.io.File;
@@ -34,9 +37,11 @@ public class DownloadTask {
     private int mThreadCount = 1;   //下载线程的数量,默认为1个线程下载
     private List<DownloadThread> mThreadList;   //线程集合,管理线程
     private Timer mTimer = new Timer(); //定时器
+    private Messenger mMessenger;
 
-    public DownloadTask(Context mContext, FileInfo mFileInfo, int ThreadCount) {
+    public DownloadTask(Context mContext, Messenger messenger,FileInfo mFileInfo, int ThreadCount) {
         this.mContext = mContext;
+        this.mMessenger = messenger;
         this.mFileInfo = mFileInfo;
         this.mThreadCount = ThreadCount;
         mDao = new ThreadDaoImpl(mContext);
@@ -76,12 +81,25 @@ public class DownloadTask {
             @Override
             public void run() {
                 //发送更新进度的广播
-                int progress = (int) (mFinished / mFileInfo.getLength() * 100);
-                Intent intent = new Intent(DownloadService.ACTION_UPDATE);
-                intent.putExtra("finished", progress);  //以百分比的形式传递数据
-                Log.d(TAG,"mFinished:"+mFinished+"---mFileInfo.getLength()"+mFileInfo.getLength()+"--progress:"+progress);
-                intent.putExtra("id", mFileInfo.getId());    //文件id,用于判断是下载那个文件的进度
-                mContext.sendBroadcast(intent); //发送广播
+//                int progress = (int) (mFinished / mFileInfo.getLength() * 100);
+//                Intent intent = new Intent(DownloadService.ACTION_UPDATE);
+//                intent.putExtra("finished", progress);  //以百分比的形式传递数据
+//                Log.d(TAG,"mFinished:"+mFinished+"---mFileInfo.getLength()"+mFileInfo.getLength()+"--progress:"+progress);
+//                intent.putExtra("id", mFileInfo.getId());    //文件id,用于判断是下载那个文件的进度
+//                mContext.sendBroadcast(intent); //发送广播
+
+                //使用Message发送进度
+                if (!isPause){
+                    Message msg = new Message();
+                    msg.what = DownloadService.MSG_UPDATE;
+                    msg.arg1 = (int) (mFinished / mFileInfo.getLength() * 100);
+                    msg.arg2 = mFileInfo.getId();
+                    try {
+                        mMessenger.send(msg);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }, 1000, 1000);   //延时1s执行,每隔1s执行一次
 
@@ -101,15 +119,27 @@ public class DownloadTask {
         }
         if (allThreadsFinished) {
             //发送广播通知UI,下载任务结束
-            Intent intent = new Intent(DownloadService.ACTION_FINISH);
-            intent.putExtra("fileInfo", mFileInfo);  //将下载文件信息传递过去
-            mContext.sendBroadcast(intent);
+//            Intent intent = new Intent(DownloadService.ACTION_FINISH);
+//            intent.putExtra("fileInfo", mFileInfo);  //将下载文件信息传递过去
+//            mContext.sendBroadcast(intent);
+
+            //使用Message发送任务结束消息
+            Message msg = new Message();
+            msg.what = DownloadService.MSG_FINISH;
+            msg.obj = mFileInfo;
+            try {
+                mMessenger.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
 
             //下载完成时,删除线程信息
             mDao.deleteThread(mFileInfo.getUrl());
 
             //取消定时器
             mTimer.cancel();
+            //下载完成时,停止服务
+            mContext.stopService(new Intent(mContext,DownloadService.class));
         }
     }
 
