@@ -173,9 +173,9 @@ public class DownLoadActivity extends BaseActivity {
 //        unregisterReceiver(mReceiver);
 
         //解绑服务
-        if (isFinished && mConnection != null) {
-            unbindService(mConnection);
-            Toast.makeText(DownLoadActivity.this, "Activity中destroy执行了...", Toast.LENGTH_SHORT).show();
-        }
+//        if (isFinished && mConnection != null) {
+//            unbindService(mConnection);
+//            Toast.makeText(DownLoadActivity.this, "Activity中destroy执行了...", Toast.LENGTH_SHORT).show();
+//        }
     }
 }
