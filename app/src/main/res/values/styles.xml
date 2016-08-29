@@ -48,4 +48,9 @@
         <item name="android:windowExitAnimation">@anim/popup_centerbar_out</item>
     </style>
 
+    <!--自定义CheckBox的样式-->
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/selector_checkbox</item>
+    </style>
+
 </resources>

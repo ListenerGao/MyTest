@@ -25,6 +25,7 @@
             android:theme="@style/ImageTranslucentTheme"></activity>
         <activity android:name=".activity.PopupWindowTest" />
         <activity android:name=".activity.DownLoadActivity" />
+        <activity android:name=".activity.TestCheckAll"/>
 
         <service android:name=".service.UpdateService1" />
         <service android:name=".update.UpdateService" />

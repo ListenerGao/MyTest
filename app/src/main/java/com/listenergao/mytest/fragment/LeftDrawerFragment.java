@@ -14,6 +14,7 @@ import com.listenergao.mytest.R;
 import com.listenergao.mytest.activity.DownLoadActivity;
 import com.listenergao.mytest.activity.PopupWindowTest;
 import com.listenergao.mytest.activity.SettingsActivity;
+import com.listenergao.mytest.activity.TestCheckAll;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +22,7 @@ import butterknife.OnClick;
 
 /**
  * Created by ListenerGao on 2016/6/29.
- *
+ * <p/>
  * 侧拉菜单界面
  */
 public class LeftDrawerFragment extends BaseFragment {
@@ -34,6 +35,8 @@ public class LeftDrawerFragment extends BaseFragment {
     TextView tvPopupwindow;
     @BindView(R.id.tv_download)
     TextView tvDownload;
+    @BindView(R.id.tv_test)
+    TextView tvTest;
 
     @Nullable
     @Override
@@ -53,7 +56,7 @@ public class LeftDrawerFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.settings, R.id.about_us,R.id.tv_popupwindow, R.id.tv_download})
+    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download,R.id.tv_test})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.settings:     //设置页面
@@ -66,6 +69,10 @@ public class LeftDrawerFragment extends BaseFragment {
                 break;
             case R.id.tv_download:  //断点续传下载
                 openActivity(getContext(), DownLoadActivity.class);
+                break;
+
+            case R.id.tv_test:  //ListView实现全选
+                openActivity(getContext(), TestCheckAll.class);
                 break;
         }
     }

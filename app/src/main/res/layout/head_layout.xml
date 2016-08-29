@@ -39,7 +39,20 @@
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/ic_drawer"
                 android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_check"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="全选"
+                android:visibility="gone"
+                />
         </RelativeLayout>
+
 
     </android.support.v7.widget.Toolbar>
 
