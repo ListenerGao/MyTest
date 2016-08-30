@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.data.TestCheckAllAdapter;
@@ -56,7 +57,7 @@ public class TestCheckAll extends BaseActivity implements AdapterView.OnItemClic
     protected void initData() {
         //初始化数据
         mData = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 15; i++) {
             TestCheckBean testCheckBean = new TestCheckBean(i, "张三" + i);
             mData.add(testCheckBean);
         }
@@ -104,8 +105,15 @@ public class TestCheckAll extends BaseActivity implements AdapterView.OnItemClic
         }
     }
 
+    /**
+     * listView+checkBox时，listView的item焦点会失去点击。
+     * 需要在listView 的item 布局的顶层布局中 添加属性：android:descendantFocusability="blocksDescendants"
+     * 当点击item时checkBox实现联动效果
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        TestCheckAllAdapter.ViewHolder holder = (TestCheckAllAdapter.ViewHolder) view.getTag();
+        // 会自动触发CheckBox的checked事件
+        holder.checkBox.toggle();
     }
 }

@@ -93,11 +93,11 @@ public class TestCheckAllAdapter extends BaseAdapter {
         return checkedMap;
     }
 
-    static class ViewHolder{
+    public static class ViewHolder{
         @BindView(R.id.tv_name)
-        TextView tvName;
+        public TextView tvName;
         @BindView(R.id.cb_check)
-        CheckBox checkBox;
+        public CheckBox checkBox;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this,view);
