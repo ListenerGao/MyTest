@@ -26,7 +26,7 @@ public class TestCheckAllAdapter extends BaseAdapter {
     private Context mContext;
     private List<TestCheckBean> mData;
     //存储CheckBox状态的集合
-    private Map<Integer,Boolean> checkedMap;
+    private Map<Integer, Boolean> checkedMap;
 
     public TestCheckAllAdapter(Context context, List<TestCheckBean> data) {
         this.mContext = context;
@@ -38,11 +38,12 @@ public class TestCheckAllAdapter extends BaseAdapter {
 
     /**
      * 初始化Map集合
-     * @param isChecked   CheckBox状态
+     *
+     * @param isChecked CheckBox状态
      */
     public void initCheckBox(boolean isChecked) {
-        for (int i = 0; i<mData.size();i++) {
-            checkedMap.put(i,isChecked);
+        for (int i = 0; i < mData.size(); i++) {
+            checkedMap.put(i, isChecked);
         }
     }
 
@@ -65,10 +66,10 @@ public class TestCheckAllAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_test_checkall,null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_test_checkall, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.tvName.setText(mData.get(position).getName());
@@ -77,9 +78,12 @@ public class TestCheckAllAdapter extends BaseAdapter {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // 当勾选框状态发生改变时,重新存入map集合
-                checkedMap.put(position,isChecked);
+                checkedMap.put(position, isChecked);
             }
         });
+        if (checkedMap.get(position) == null) {  //防止出现空指针现象
+            checkedMap.put(position, false);
+        }
         //设置勾选框的状态
         holder.checkBox.setChecked(checkedMap.get(position));
         return convertView;
@@ -87,20 +91,21 @@ public class TestCheckAllAdapter extends BaseAdapter {
 
     /**
      * 得到勾选状态的集合
+     *
      * @return
      */
-    public Map<Integer,Boolean> getCheckedMap() {
+    public Map<Integer, Boolean> getCheckedMap() {
         return checkedMap;
     }
 
-    public static class ViewHolder{
+    public static class ViewHolder {
         @BindView(R.id.tv_name)
         public TextView tvName;
         @BindView(R.id.cb_check)
         public CheckBox checkBox;
 
         public ViewHolder(View view) {
-            ButterKnife.bind(this,view);
+            ButterKnife.bind(this, view);
         }
     }
 }

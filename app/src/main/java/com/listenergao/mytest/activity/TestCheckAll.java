@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.data.TestCheckAllAdapter;
@@ -57,7 +56,7 @@ public class TestCheckAll extends BaseActivity implements AdapterView.OnItemClic
     protected void initData() {
         //初始化数据
         mData = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 150; i++) {
             TestCheckBean testCheckBean = new TestCheckBean(i, "张三" + i);
             mData.add(testCheckBean);
         }
@@ -92,7 +91,10 @@ public class TestCheckAll extends BaseActivity implements AdapterView.OnItemClic
                 Map<Integer, Boolean> checkedMap = mAdapter.getCheckedMap();
                 List<TestCheckBean> allChecked = new ArrayList<>();
                 for (int i = 0; i < checkedMap.size(); i++) {
-                    if (checkedMap.get(i)) {
+
+                    if (checkedMap.get(i) == null) {    //防止出现空指针,如果为空,证明没有被选中
+                        continue;
+                    }else if (checkedMap.get(i)){
                         TestCheckBean testCheckBean = mData.get(i);
                         allChecked.add(testCheckBean);
                     }
