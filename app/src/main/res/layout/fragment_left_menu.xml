@@ -49,16 +49,22 @@
             android:text="PopupWindow" />
 
         <TextView
-        android:id="@+id/tv_download"
-        style="@style/LeftDrawerFragment_textView"
-        android:layout_below="@id/tv_popupwindow"
-        android:text="多线程断点续传下载" />
+            android:id="@+id/tv_download"
+            style="@style/LeftDrawerFragment_textView"
+            android:layout_below="@id/tv_popupwindow"
+            android:text="多线程断点续传下载" />
 
         <TextView
             android:id="@+id/tv_test"
             style="@style/LeftDrawerFragment_textView"
             android:layout_below="@id/tv_download"
             android:text="Listview实现全选" />
+
+        <TextView
+            android:id="@+id/tv_activity_anim"
+            style="@style/LeftDrawerFragment_textView"
+            android:layout_below="@id/tv_test"
+            android:text="Activity切换动画" />
 
 
         <LinearLayout

@@ -37,6 +37,8 @@ public class LeftDrawerFragment extends BaseFragment {
     TextView tvDownload;
     @BindView(R.id.tv_test)
     TextView tvTest;
+    @BindView(R.id.tv_activity_anim)
+    TextView tvActivityAnim;
 
     @Nullable
     @Override
@@ -56,7 +58,7 @@ public class LeftDrawerFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download,R.id.tv_test})
+    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test,R.id.tv_activity_anim})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.settings:     //设置页面
@@ -74,6 +76,10 @@ public class LeftDrawerFragment extends BaseFragment {
             case R.id.tv_test:  //ListView实现全选
                 openActivity(getContext(), TestCheckAll.class);
                 break;
+
+            case R.id.tv_activity_anim:
+
+                break;
         }
     }
 
@@ -82,5 +88,4 @@ public class LeftDrawerFragment extends BaseFragment {
         Intent intent = new Intent(context, clazz);
         startActivity(intent);
     }
-
 }
