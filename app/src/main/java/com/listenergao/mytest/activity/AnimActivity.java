@@ -33,6 +33,7 @@ public class AnimActivity extends BaseActivity {
 
         ibArrowLeft.setVisibility(View.VISIBLE);
         toolbar.setTitle("ActivityAnim-Test");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white)); //设置主标题字体颜色
     }
 
     @Override

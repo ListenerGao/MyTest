@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.listenergao.mytest.R;
+import com.listenergao.mytest.activity.AnimActivity;
 import com.listenergao.mytest.activity.DownLoadActivity;
 import com.listenergao.mytest.activity.PopupWindowTest;
 import com.listenergao.mytest.activity.SettingsActivity;
@@ -78,7 +79,7 @@ public class LeftDrawerFragment extends BaseFragment {
                 break;
 
             case R.id.tv_activity_anim:
-
+                openActivity(getContext(), AnimActivity.class);
                 break;
         }
     }
