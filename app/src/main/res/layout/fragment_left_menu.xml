@@ -43,33 +43,48 @@
         android:layout_height="match_parent"
         android:layout_marginTop="15dp">
 
-        <TextView
-            android:id="@+id/tv_popupwindow"
-            style="@style/LeftDrawerFragment_textView"
-            android:text="PopupWindow" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_download"
-            style="@style/LeftDrawerFragment_textView"
-            android:layout_below="@id/tv_popupwindow"
-            android:text="多线程断点续传下载" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_test"
-            style="@style/LeftDrawerFragment_textView"
-            android:layout_below="@id/tv_download"
-            android:text="Listview实现全选" />
+                <TextView
+                    android:id="@+id/tv_popupwindow"
+                    style="@style/LeftDrawerFragment_textView"
+                    android:text="PopupWindow" />
 
-        <TextView
-            android:id="@+id/tv_activity_anim"
-            style="@style/LeftDrawerFragment_textView"
-            android:layout_below="@id/tv_test"
-            android:text="Activity切换动画" />
+                <TextView
+                    android:id="@+id/tv_download"
+                    style="@style/LeftDrawerFragment_textView"
+                    android:text="多线程断点续传下载" />
+
+                <TextView
+                    android:id="@+id/tv_test"
+                    style="@style/LeftDrawerFragment_textView"
+                    android:text="Listview实现全选" />
+
+                <TextView
+                    android:id="@+id/tv_test1"
+                    style="@style/LeftDrawerFragment_textView"
+                    android:text="Listview实现单选" />
+
+                <TextView
+                    android:id="@+id/tv_activity_anim"
+                    style="@style/LeftDrawerFragment_textView"
+                    android:text="Activity切换动画" />
+
+            </LinearLayout>
+        </ScrollView>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:background="@color/white"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
             android:weightSum="2">

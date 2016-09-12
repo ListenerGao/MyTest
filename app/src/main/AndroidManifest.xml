@@ -27,6 +27,7 @@
         <activity android:name=".activity.DownLoadActivity" />
         <activity android:name=".activity.TestCheckAll"/>
         <activity android:name=".activity.AnimActivity"/>
+        <activity android:name=".activity.TestCheckOne"/>
 
         <service android:name=".service.UpdateService1" />
         <service android:name=".update.UpdateService" />

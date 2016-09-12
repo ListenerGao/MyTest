@@ -16,6 +16,7 @@ import com.listenergao.mytest.activity.DownLoadActivity;
 import com.listenergao.mytest.activity.PopupWindowTest;
 import com.listenergao.mytest.activity.SettingsActivity;
 import com.listenergao.mytest.activity.TestCheckAll;
+import com.listenergao.mytest.activity.TestCheckOne;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +39,8 @@ public class LeftDrawerFragment extends BaseFragment {
     TextView tvDownload;
     @BindView(R.id.tv_test)
     TextView tvTest;
+    @BindView(R.id.tv_test1)
+    TextView tvTest1;
     @BindView(R.id.tv_activity_anim)
     TextView tvActivityAnim;
 
@@ -59,7 +62,7 @@ public class LeftDrawerFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test,R.id.tv_activity_anim})
+    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test, R.id.tv_activity_anim, R.id.tv_test1})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.settings:     //设置页面
@@ -78,9 +81,14 @@ public class LeftDrawerFragment extends BaseFragment {
                 openActivity(getContext(), TestCheckAll.class);
                 break;
 
+            case R.id.tv_test1:     //ListView实现单选
+                openActivity(getContext(), TestCheckOne.class);
+                break;
+
             case R.id.tv_activity_anim:
                 openActivity(getContext(), AnimActivity.class);
                 break;
+
         }
     }
 
