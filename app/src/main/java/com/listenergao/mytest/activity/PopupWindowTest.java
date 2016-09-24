@@ -50,6 +50,8 @@ public class PopupWindowTest extends BaseActivity {
         ButterKnife.bind(this);
 
         ibArrowLeft.setVisibility(View.VISIBLE);
+        toolbar.setTitle("PopupWindowTest");
+        setSupportActionBar(toolbar);
     }
 
     @Override

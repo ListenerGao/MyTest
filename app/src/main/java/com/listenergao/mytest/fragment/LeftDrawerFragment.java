@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.listenergao.mytest.MainActivity;
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.activity.AnimActivity;
 import com.listenergao.mytest.activity.DownLoadActivity;
@@ -43,6 +45,7 @@ public class LeftDrawerFragment extends BaseFragment {
     TextView tvTest1;
     @BindView(R.id.tv_activity_anim)
     TextView tvActivityAnim;
+    private MainActivity mainActivity;
 
     @Nullable
     @Override
@@ -59,7 +62,7 @@ public class LeftDrawerFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
+        mainActivity = (MainActivity) getActivity();
     }
 
     @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test, R.id.tv_activity_anim, R.id.tv_test1})
@@ -72,21 +75,26 @@ public class LeftDrawerFragment extends BaseFragment {
                 break;
             case R.id.tv_popupwindow:   //PopupWindow测试页面
                 openActivity(getContext(), PopupWindowTest.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.tv_download:  //断点续传下载
                 openActivity(getContext(), DownLoadActivity.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
             case R.id.tv_test:  //ListView实现全选
                 openActivity(getContext(), TestCheckAll.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
             case R.id.tv_test1:     //ListView实现单选
                 openActivity(getContext(), TestCheckOne.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
             case R.id.tv_activity_anim:
                 openActivity(getContext(), AnimActivity.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
         }

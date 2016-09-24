@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     @BindView(R.id.left_drawer)
     FrameLayout leftDrawerFragment;
     @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
+    public DrawerLayout drawerLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolBar;
 
@@ -59,11 +59,13 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         mToolBar.setSubtitle("subTitle");   //设置子标题
         mToolBar.setSubtitleTextColor(getResources().getColor(R.color.darker_gray));    //设置子标题字体颜色
         mToolBar.setTitleTextAppearance(this,R.style.Theme_ToolBar_Base_Subtitle);     //修改子标题的外观,包裹文字的颜色,以及大小等
+        setSupportActionBar(mToolBar);
         //设置右上角的填充菜单
         mToolBar.inflateMenu(R.menu.base_toolbar_menu);
         //设置右上角菜单的点击事件
         mToolBar.setOnMenuItemClickListener(this);
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,mToolBar, R.string.open,R.string.close);
+//        mActionBarDrawerToggle.syncState();   ?
         drawerLayout.setDrawerListener(mActionBarDrawerToggle);
 
     }
