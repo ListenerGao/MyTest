@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
+        <!--<android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -24,7 +24,8 @@
                 android:gravity="center|center_horizontal"
                 android:text="Clock" />
 
-        </android.support.v7.widget.Toolbar>
+        </android.support.v7.widget.Toolbar>-->
+        <include layout="@layout/toolbar_layout"/>
 
         <FrameLayout
             android:id="@+id/content_frame"
