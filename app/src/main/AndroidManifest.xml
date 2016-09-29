@@ -26,7 +26,7 @@
         <activity android:name=".activity.PopupWindowTest" />
         <activity android:name=".activity.DownLoadActivity" />
         <activity android:name=".activity.TestCheckAll"/>
-        <activity android:name=".activity.AnimActivity"/>
+        <activity android:name=".activity.TestFragmentActivity"/>
         <activity android:name=".activity.TestCheckOne"/>
 
         <service android:name=".service.UpdateService1" />

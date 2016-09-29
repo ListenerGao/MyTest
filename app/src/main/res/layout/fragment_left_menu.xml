@@ -75,7 +75,7 @@
                 <TextView
                     android:id="@+id/tv_activity_anim"
                     style="@style/LeftDrawerFragment_textView"
-                    android:text="Activity切换动画" />
+                    android:text="Fragment测试" />
 
             </LinearLayout>
         </ScrollView>

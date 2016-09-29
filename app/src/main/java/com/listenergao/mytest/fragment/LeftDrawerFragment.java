@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.listenergao.mytest.MainActivity;
 import com.listenergao.mytest.R;
-import com.listenergao.mytest.activity.AnimActivity;
+import com.listenergao.mytest.activity.TestFragmentActivity;
 import com.listenergao.mytest.activity.DownLoadActivity;
 import com.listenergao.mytest.activity.PopupWindowTest;
 import com.listenergao.mytest.activity.SettingsActivity;
@@ -50,7 +50,7 @@ public class LeftDrawerFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_left_menu, null);
+        View view = inflater.inflate(R.layout.fragment_left_menu, container,false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -92,8 +92,8 @@ public class LeftDrawerFragment extends BaseFragment {
                 mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
-            case R.id.tv_activity_anim:
-                openActivity(getContext(), AnimActivity.class);
+            case R.id.tv_activity_anim:     //Fragment测试
+                openActivity(getContext(), TestFragmentActivity.class);
                 mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 

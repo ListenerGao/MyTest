@@ -1,7 +1,5 @@
 package com.listenergao.mytest;
 
-import android.content.res.Configuration;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -27,12 +25,12 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     //Fragment标识
     private static final String TAG_MAIN_MENU = "TAG_MAIN_MENU";
     private static final String TAG_LEFT_MENU = "TAG_LEFT_MENU";
+    @BindView(R.id.drawer_layout)
+    public DrawerLayout drawerLayout;
     @BindView(R.id.content_frame)
     FrameLayout contentFrame;
     @BindView(R.id.left_drawer)
     FrameLayout leftDrawerFragment;
-    @BindView(R.id.drawer_layout)
-    public DrawerLayout drawerLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolBar;
 
@@ -49,23 +47,25 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         ButterKnife.bind(this);
 //        civ_title_head.setVisibility(View.VISIBLE);
 
-        mToolBar.setNavigationIcon(R.drawable.ic_drawer_home);   //设置导航栏图标
-        mToolBar.setLogo(R.mipmap.ic_launcher);     //设置app Logo
-
         mToolBar.setTitle("Title"); //设置主标题
         mToolBar.setTitleTextColor(getResources().getColor(R.color.white)); //设置主标题字体颜色
-        mToolBar.setTitleTextAppearance(this,R.style.Theme_ToolBar_Base_Title);    //修改主标题的外观,包括文字的颜色 以及大小等
+        mToolBar.setTitleTextAppearance(this, R.style.Theme_ToolBar_Base_Title);    //修改主标题的外观,包括文字的颜色 以及大小等
 
         mToolBar.setSubtitle("subTitle");   //设置子标题
         mToolBar.setSubtitleTextColor(getResources().getColor(R.color.darker_gray));    //设置子标题字体颜色
-        mToolBar.setTitleTextAppearance(this,R.style.Theme_ToolBar_Base_Subtitle);     //修改子标题的外观,包裹文字的颜色,以及大小等
+        mToolBar.setTitleTextAppearance(this, R.style.Theme_ToolBar_Base_Subtitle);     //修改子标题的外观,包裹文字的颜色,以及大小等
         setSupportActionBar(mToolBar);
+//        mToolBar.setNavigationIcon(R.drawable.ic_drawer_home);   //设置导航栏图标
+        mToolBar.setLogo(R.mipmap.ic_launcher);     //设置app Logo
+
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //设置右上角的填充菜单
         mToolBar.inflateMenu(R.menu.base_toolbar_menu);
         //设置右上角菜单的点击事件
         mToolBar.setOnMenuItemClickListener(this);
-        mActionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,mToolBar, R.string.open,R.string.close);
-//        mActionBarDrawerToggle.syncState();   ?
+        mActionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, mToolBar, R.string.open, R.string.close);
+        mActionBarDrawerToggle.syncState();  // ?
         drawerLayout.setDrawerListener(mActionBarDrawerToggle);
 
     }
@@ -73,7 +73,6 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     @Override
     public void initData() {
         initFragment();
-
     }
 
 //    @OnClick(R.id.civ_title_head)
@@ -96,10 +95,13 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         MainFragment mainFragment = (MainFragment) fragmentManager.findFragmentByTag(TAG_MAIN_MENU);
 
     }
-    /**菜单按钮点击事件*/
+
+    /**
+     * 菜单按钮点击事件
+     */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_search:
                 Toast.makeText(UiUtils.getContext(), "查找", Toast.LENGTH_SHORT).show();
                 break;
@@ -119,11 +121,6 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         return false;
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mActionBarDrawerToggle.syncState();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -131,11 +128,5 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mActionBarDrawerToggle.onConfigurationChanged(newConfig);
     }
 }

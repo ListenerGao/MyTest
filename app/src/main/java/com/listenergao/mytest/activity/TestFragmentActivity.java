@@ -1,6 +1,5 @@
 package com.listenergao.mytest.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
@@ -16,7 +15,7 @@ import butterknife.OnClick;
  * <p/>
  * Activity切换动画
  */
-public class AnimActivity extends BaseActivity {
+public class TestFragmentActivity extends BaseActivity {
     @BindView(R.id.ib_arrow_left)
     ImageButton ibArrowLeft;
     @BindView(R.id.toolbar)

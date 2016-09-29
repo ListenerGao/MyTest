@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 得到布局文件
+     *
      * @return
      */
     protected abstract int getLayoutResId();
@@ -30,13 +31,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         //隐藏导航栏
 //        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);  //继承AppCompatActivity时使用
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);  //继承Activity时使用
-        if (getLayoutResId() != -1){
+        if (getLayoutResId() != -1) {
             setContentView(getLayoutResId());
         }
         initView();
-        initData();
+        if (savedInstanceState == null) {   //处理当屏幕发生旋转时,Fragment会重建,导致界面出现覆盖的问题.
+            initData();
+        }
     }
-
 
 
 }
