@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by ListenerGao on 2016/7/1.
  */
-public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener {
+public class MainActivity extends BaseActivity {
 
     //Fragment标识
     private static final String TAG_MAIN_MENU = "TAG_MAIN_MENU";
@@ -47,23 +48,21 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         ButterKnife.bind(this);
 //        civ_title_head.setVisibility(View.VISIBLE);
 
-        mToolBar.setTitle("Title"); //设置主标题
-        mToolBar.setTitleTextColor(getResources().getColor(R.color.white)); //设置主标题字体颜色
-        mToolBar.setTitleTextAppearance(this, R.style.Theme_ToolBar_Base_Title);    //修改主标题的外观,包括文字的颜色 以及大小等
-
-        mToolBar.setSubtitle("subTitle");   //设置子标题
-        mToolBar.setSubtitleTextColor(getResources().getColor(R.color.darker_gray));    //设置子标题字体颜色
-        mToolBar.setTitleTextAppearance(this, R.style.Theme_ToolBar_Base_Subtitle);     //修改子标题的外观,包裹文字的颜色,以及大小等
+        mToolBar.setTitle("首页"); //设置主标题
+//        mToolBar.setTitleTextColor(getResources().getColor(R.color.white)); //设置主标题字体颜色
+//        mToolBar.setTitleTextAppearance(this, R.style.Theme_ToolBar_Base_Title);    //修改主标题的外观,包括文字的颜色 以及大小等
+//
+//        mToolBar.setSubtitle("subTitle");   //设置子标题
+//        mToolBar.setSubtitleTextColor(getResources().getColor(R.color.darker_gray));    //设置子标题字体颜色
+//        mToolBar.setTitleTextAppearance(this, R.style.Theme_ToolBar_Base_Subtitle);     //修改子标题的外观,包裹文字的颜色,以及大小等
         setSupportActionBar(mToolBar);
 //        mToolBar.setNavigationIcon(R.drawable.ic_drawer_home);   //设置导航栏图标
-        mToolBar.setLogo(R.mipmap.ic_launcher);     //设置app Logo
+//        mToolBar.setLogo(R.mipmap.ic_launcher);     //设置app Logo
 
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //设置右上角的填充菜单
-        mToolBar.inflateMenu(R.menu.base_toolbar_menu);
+//        mToolBar.inflateMenu(R.menu.base_toolbar_menu);
         //设置右上角菜单的点击事件
-        mToolBar.setOnMenuItemClickListener(this);
+//        mToolBar.setOnMenuItemClickListener(this);
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, mToolBar, R.string.open, R.string.close);
         mActionBarDrawerToggle.syncState();  // ?
         drawerLayout.setDrawerListener(mActionBarDrawerToggle);
@@ -97,36 +96,42 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     }
 
     /**
-     * 菜单按钮点击事件
+     * 初始化Action Menu
+     *
+     * @param menu
+     * @return
      */
+
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                Toast.makeText(UiUtils.getContext(), "查找", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.action_notification:
-                Toast.makeText(UiUtils.getContext(), "通知", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.action_item1:
-                Toast.makeText(UiUtils.getContext(), "设置", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.action_item2:
-                Toast.makeText(UiUtils.getContext(), "关于", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        return false;
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.base_toolbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 
+    /**
+     * Action Menu按钮点击事件
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mActionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                Toast.makeText(UiUtils.getContext(), "查找", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.action_notification:
+                Toast.makeText(UiUtils.getContext(), "通知", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.action_item1:
+                Toast.makeText(UiUtils.getContext(), "设置", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.action_item2:
+                Toast.makeText(UiUtils.getContext(), "关于", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }
