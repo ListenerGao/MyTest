@@ -2,8 +2,10 @@ package com.listenergao.mytest;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -105,8 +107,34 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.base_toolbar_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        //得到searchView对象
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        //设置SearchView打开关闭的监听事件
+        MenuItemCompat.setOnActionExpandListener(searchItem,expandListener);
         return super.onCreateOptionsMenu(menu);
     }
+
+    /**
+     * SearchView监听事件
+     */
+    MenuItemCompat.OnActionExpandListener expandListener = new MenuItemCompat.OnActionExpandListener() {
+        //打开
+        @Override
+        public boolean onMenuItemActionExpand(MenuItem item) {
+            Toast.makeText(MainActivity.this, "onMenuItemActionExpand方法执行了...", Toast.LENGTH_SHORT).show();
+            // 返回true 打开搜索扩展视图,否则不会打开视图
+            return true;
+        }
+        //关闭
+        @Override
+        public boolean onMenuItemActionCollapse(MenuItem item) {
+            Toast.makeText(MainActivity.this, "onMenuItemActionCollapse方法执行了...", Toast.LENGTH_SHORT).show();
+            // 返回true 关闭搜索扩展视图
+            return true;
+        }
+    };
 
 
     /**
@@ -115,10 +143,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_search:
-                Toast.makeText(UiUtils.getContext(), "查找", Toast.LENGTH_SHORT).show();
-                return true;
-
             case R.id.action_notification:
                 Toast.makeText(UiUtils.getContext(), "通知", Toast.LENGTH_SHORT).show();
                 return true;
