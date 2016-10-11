@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.listenergao.mytest.MainActivity;
 import com.listenergao.mytest.R;
+import com.listenergao.mytest.activity.Android6NewWidget;
 import com.listenergao.mytest.activity.TestFragmentActivity;
 import com.listenergao.mytest.activity.DownLoadActivity;
 import com.listenergao.mytest.activity.PopupWindowTest;
@@ -45,6 +46,8 @@ public class LeftDrawerFragment extends BaseFragment {
     TextView tvTest1;
     @BindView(R.id.tv_activity_anim)
     TextView tvActivityAnim;
+    @BindView(R.id.tv_activity_new_widget)
+    TextView tvNewWidget;
     private MainActivity mainActivity;
 
     @Nullable
@@ -65,7 +68,7 @@ public class LeftDrawerFragment extends BaseFragment {
         mainActivity = (MainActivity) getActivity();
     }
 
-    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test, R.id.tv_activity_anim, R.id.tv_test1})
+    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test, R.id.tv_activity_anim, R.id.tv_test1,R.id.tv_activity_new_widget})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.settings:     //设置页面
@@ -95,6 +98,10 @@ public class LeftDrawerFragment extends BaseFragment {
             case R.id.tv_activity_anim:     //Fragment测试
                 openActivity(getContext(), TestFragmentActivity.class);
                 mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
+                break;
+
+            case R.id.tv_activity_new_widget:   //Android6.0新控件测试
+                openActivity(getContext(), Android6NewWidget.class);
                 break;
 
         }

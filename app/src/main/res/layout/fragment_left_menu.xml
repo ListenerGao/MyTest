@@ -77,6 +77,11 @@
                     style="@style/LeftDrawerFragment_textView"
                     android:text="Fragment测试" />
 
+                <TextView
+                    android:id="@+id/tv_activity_new_widget"
+                    style="@style/LeftDrawerFragment_textView"
+                    android:text="Android 6.0 新控件" />
+
             </LinearLayout>
         </ScrollView>
 

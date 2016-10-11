@@ -22,19 +22,21 @@
         <activity android:name=".activity.NewsDetails" />
         <activity
             android:name=".activity.SettingsActivity"
-            android:theme="@style/ImageTranslucentTheme"></activity>
+            android:theme="@style/ImageTranslucentTheme" />
         <activity android:name=".activity.PopupWindowTest" />
         <activity android:name=".activity.DownLoadActivity" />
-        <activity android:name=".activity.TestCheckAll"/>
-        <activity android:name=".activity.TestFragmentActivity"/>
-        <activity android:name=".activity.TestCheckOne"/>
+        <activity android:name=".activity.TestCheckAll" />
+        <activity android:name=".activity.TestFragmentActivity" />
+        <activity android:name=".activity.TestCheckOne" />
 
         <service android:name=".service.UpdateService1" />
         <service android:name=".update.UpdateService" />
         <service
             android:name=".download.DownloadService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".activity.Android6NewWidget"></activity>
     </application>
 
 </manifest>
