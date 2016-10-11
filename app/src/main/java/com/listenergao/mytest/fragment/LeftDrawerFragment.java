@@ -53,7 +53,7 @@ public class LeftDrawerFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_left_menu, container,false);
+        View view = inflater.inflate(R.layout.fragment_left_menu, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -68,11 +68,12 @@ public class LeftDrawerFragment extends BaseFragment {
         mainActivity = (MainActivity) getActivity();
     }
 
-    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test, R.id.tv_activity_anim, R.id.tv_test1,R.id.tv_activity_new_widget})
+    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test, R.id.tv_activity_anim, R.id.tv_test1, R.id.tv_activity_new_widget})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.settings:     //设置页面
                 openActivity(getContext(), SettingsActivity.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);    //关闭侧滑菜单
                 break;
             case R.id.about_us:
                 break;
@@ -102,6 +103,7 @@ public class LeftDrawerFragment extends BaseFragment {
 
             case R.id.tv_activity_new_widget:   //Android6.0新控件测试
                 openActivity(getContext(), Android6NewWidget.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
         }
