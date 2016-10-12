@@ -1,9 +1,10 @@
 package com.listenergao.mytest.activity;
 
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import com.listenergao.mytest.R;
 
@@ -17,6 +18,8 @@ import butterknife.ButterKnife;
  */
 public class Android6NewWidget extends BaseActivity implements View.OnClickListener {
 
+    @BindView(R.id.activity_android6_new_widget)
+    CoordinatorLayout rootLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.fab_button)
@@ -47,6 +50,18 @@ public class Android6NewWidget extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "FloatingActionButton按钮被点击了..", Toast.LENGTH_SHORT).show();
+        //得到Snackbar对象
+        final Snackbar snackbar = Snackbar.make(rootLayout, "我是Snackbar...", Snackbar.LENGTH_LONG);
+        //设置Snackbar背景
+        snackbar.getView().setBackgroundResource(R.color.colorPrimary);
+        snackbar.show();
+        //显示带Action的Snackbar
+        snackbar.setAction("取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //关闭Snackbar
+                snackbar.dismiss();
+            }
+        });
     }
 }
