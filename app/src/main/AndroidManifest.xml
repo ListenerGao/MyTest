@@ -36,7 +36,13 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activity.Android6NewWidget"></activity>
+        <activity android:name=".activity.Android6NewWidget">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.Android6NewWidget"
+                >
+            </meta-data>
+        </activity>
     </application>
 
 </manifest>

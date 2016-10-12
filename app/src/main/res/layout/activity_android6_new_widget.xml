@@ -10,15 +10,18 @@
     <include layout="@layout/toolbar_layout" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        app:elevation="4dp"
         android:src="@drawable/ic_favorite"
         app:backgroundTint="@color/colorPrimary"
-        android:layout_margin="10dp"
-        app:fabSize="normal" />
+        app:elevation="4dp"
+        app:pressedTranslationZ="8dp"
+        app:fabSize="normal"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:useCompatPadding="true" />
 
 
 </RelativeLayout>
