@@ -7,7 +7,44 @@
     android:layout_height="match_parent"
     tools:context="com.listenergao.mytest.activity.Android6NewWidget">
 
-    <include layout="@layout/toolbar_layout" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_layout" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp">
+            <!--这里可以直接使用EditText-->
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+
+    </LinearLayout>
 
 
     <android.support.design.widget.FloatingActionButton
@@ -15,12 +52,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:src="@drawable/ic_favorite"
         android:layout_margin="10dp"
+        android:src="@drawable/ic_favorite"
         app:backgroundTint="@color/colorPrimary"
         app:elevation="4dp"
-        app:pressedTranslationZ="8dp"
         app:fabSize="normal"
+        app:pressedTranslationZ="8dp"
         app:rippleColor="@color/colorPrimaryDark"
         app:useCompatPadding="false" />
 

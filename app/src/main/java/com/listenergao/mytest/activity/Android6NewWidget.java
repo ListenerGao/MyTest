@@ -1,10 +1,17 @@
 package com.listenergao.mytest.activity;
 
+import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.listenergao.mytest.R;
 
@@ -18,12 +25,17 @@ import butterknife.ButterKnife;
  */
 public class Android6NewWidget extends BaseActivity implements View.OnClickListener {
 
+    private static final String TAG = "Android6NewWidget";
     @BindView(R.id.activity_android6_new_widget)
     CoordinatorLayout rootLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.fab_button)
     FloatingActionButton fabButton;
+    @BindView(R.id.til_username)
+    TextInputLayout tilUsername;
+    @BindView(R.id.til_password)
+    TextInputLayout tilPassword;
 
     @Override
     protected int getLayoutResId() {
@@ -41,11 +53,76 @@ public class Android6NewWidget extends BaseActivity implements View.OnClickListe
         //设置FloatingActionButton的点击事件
         fabButton.setOnClickListener(this);
 
+        hideKeyboard();
+        //初始化TextInputLayout
+        //得到EditText对象
+        final EditText userEditText = tilUsername.getEditText();
+        final EditText pwdEditText = tilPassword.getEditText();
+        //设置hint提示,也可直接在xml中设置
+        //userEditText.setHint("Username");
+        //pwdEditText.setHint("Password");
+
+
+        //EditText添加文本变化监听
+        userEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d(TAG, "beforeTextChanged执行了....s = " + s + "---start = " + start + "---count = " + count + "---after = " + after);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d(TAG, "onTextChanged执行了....s = " + s + "---start = " + start + "---count = " + count + "---before = " + before);
+                if (s.length() > 7) {
+                    tilUsername.setErrorEnabled(true);
+                    tilUsername.setError("用户名长度不能超过8个");
+                } else {
+                    tilUsername.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d(TAG, "afterTextChanged执行了....s = " + s);
+            }
+        });
+
+        pwdEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() < 6) {
+                    tilPassword.setErrorEnabled(true);
+                    tilPassword.setError("密码长度不能小于6个");
+                } else {
+                    tilPassword.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
     protected void initData() {
 
+    }
+
+    /**
+     * 隐藏软键盘
+     */
+    private void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     @Override
