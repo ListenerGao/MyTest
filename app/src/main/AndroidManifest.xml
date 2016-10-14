@@ -39,9 +39,32 @@
         <activity android:name=".activity.Android6NewWidget">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.Android6NewWidget"
-                >
-            </meta-data>
+                android:value=".activity.Android6NewWidget" />
+        </activity>
+        <activity android:name=".activity.TabLayoutActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.TabLayoutActivity" />
+        </activity>
+        <activity android:name=".activity.NavigationViewActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.NavigationViewActivity" />
+        </activity>
+        <activity android:name=".activity.CoordinatorLayoutActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.CoordinatorLayoutActivity" />
+        </activity>
+        <activity android:name=".activity.AppBarLayoutActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.AppBarLayoutActivity" />
+        </activity>
+        <activity android:name=".activity.CollapsingToolbarLayoutActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.CollapsingToolbarLayoutActivity" />
         </activity>
     </application>
 

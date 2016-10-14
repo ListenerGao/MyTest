@@ -42,6 +42,41 @@
                 android:hint="Password"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
+        <!--选项卡-->
+        <Button
+            android:id="@+id/bt_tl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TabLayout"
+            />
+        <!--DrawerLayout的SlideMenu-->
+        <Button
+            android:id="@+id/bt_nv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NavigationView"
+            />
+        <!--超级FrameLayout-->
+        <Button
+            android:id="@+id/bt_cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CoordinatorLayout"
+            />
+        <!--MD风格的滑动Layout-->
+        <Button
+            android:id="@+id/bt_abl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AppBarLayout"
+            />
+        <!--可折叠,MD风格的ToolbarLayout-->
+        <Button
+            android:id="@+id/bt_ctl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CollapsingToolbarLayout"
+            />
 
 
     </LinearLayout>
