@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_tab_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_tab_layout_view_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.listenergao.mytest.activity.TabLayoutActivity">
+    tools:context="com.listenergao.mytest.activity.TabLayoutViewPagerActivity">
 
-    <include layout="@layout/toolbar_layout" />
+    <include layout="@layout/toolbar_layout"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
@@ -20,10 +20,10 @@
 
     </android.support.design.widget.TabLayout>
 
-    <Button
-        android:id="@+id/bt_tl_viewpager"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:text="TabLayout+ViewPager测试" />
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
 </LinearLayout>

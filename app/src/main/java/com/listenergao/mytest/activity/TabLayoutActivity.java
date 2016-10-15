@@ -1,13 +1,17 @@
 package com.listenergao.mytest.activity;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.listenergao.mytest.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TabLayoutActivity extends BaseActivity {
 
@@ -18,6 +22,8 @@ public class TabLayoutActivity extends BaseActivity {
     LinearLayout activityTabLayout;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
+    @BindView(R.id.bt_tl_viewpager)
+    Button btTabLayoutTest;
 
     @Override
     protected int getLayoutResId() {
@@ -47,6 +53,11 @@ public class TabLayoutActivity extends BaseActivity {
     @Override
     protected void initData() {
 
+    }
+
+    @OnClick(R.id.bt_tl_viewpager)
+    public void onClick(View view){
+        startActivity(new Intent(this,TabLayoutViewPagerActivity.class));
     }
 
 }
