@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_tab_layout_view_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.listenergao.mytest.activity.TabLayoutViewPagerActivity">
 
-    <include layout="@layout/toolbar_layout"/>
+    <include layout="@layout/toolbar_layout" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
+        style="@style/CustomTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabIndicatorColor="@android:color/holo_blue_bright"
-        app:tabSelectedTextColor="@android:color/holo_blue_bright"
-        app:tabTextColor="@android:color/black">
+        android:layout_height="wrap_content">
 
     </android.support.design.widget.TabLayout>
 

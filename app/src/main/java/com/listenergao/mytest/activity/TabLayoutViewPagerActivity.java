@@ -59,7 +59,7 @@ public class TabLayoutViewPagerActivity extends BaseActivity {
 
         TabFragmentAdapter adapter = new TabFragmentAdapter(getSupportFragmentManager(),mTabFragments,mTabList);
         viewpager.setAdapter(adapter);
-        //将TabLayout与ViewPager关联起来
+        //将TabLayout与ViewPager关联起来(注意:该行代码需在ViewPager设置Adapter之后调用)
         tabLayout.setupWithViewPager(viewpager);
         //为Tabs设置适配器
         tabLayout.setTabsFromPagerAdapter(adapter);
