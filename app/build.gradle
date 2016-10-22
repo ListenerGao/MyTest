@@ -38,4 +38,6 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
+    // StatusBarUtil 状态栏工具类(参考网址：http://jaeger.itscoder.com/android/2016/03/27/statusbar-util.html)
+    compile 'com.jaeger.statusbaruitl:library:1.2.8'
 }

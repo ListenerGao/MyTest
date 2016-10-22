@@ -46,11 +46,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.TabLayoutActivity" />
         </activity>
-        <activity android:name=".activity.NavigationViewActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.NavigationViewActivity" />
-        </activity>
+        <activity android:name=".activity.NavigationViewActivity"/>
         <activity android:name=".activity.CoordinatorLayoutActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
