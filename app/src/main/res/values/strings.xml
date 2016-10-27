@@ -8,4 +8,9 @@
     <string name="menu_about_us">关于</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="home">Home</string>
+    <string name="download">Download</string>
+    <string name="favourite">Favourite</string>
+    <string name="more">More</string>
+    <string name="settings">Settings</string>
 </resources>

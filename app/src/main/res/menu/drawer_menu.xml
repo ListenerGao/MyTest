@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_home"
+            android:icon="@drawable/ic_home_black"
+            android:title="@string/home" />
+
+        <item
+            android:id="@+id/drawer_favourite"
+            android:icon="@drawable/ic_favorite_black"
+            android:title="@string/favourite" />
+
+        <item
+            android:id="@+id/drawer_download"
+            android:icon="@drawable/ic_file_download_black"
+            android:title="@string/download" />
+
+        <item
+            android:id="@+id/sub"
+            android:title="subTitle">
+            <menu>
+                <item
+                    android:id="@+id/drawer_more"
+                    android:icon="@drawable/ic_more_horiz_black"
+                    android:title="@string/more" />
+                <item
+                    android:id="@+id/drawer_settings"
+                    android:icon="@drawable/ic_settings_black"
+                    android:title="@string/settings" />
+            </menu>
+        </item>
+    </group>
+
+</menu>
