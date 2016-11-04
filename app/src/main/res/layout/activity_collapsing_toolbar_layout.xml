@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="40dp"
             app:expandedTitleMarginEnd="30dp"
+            app:expandedTitleMarginStart="40dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <ImageView
@@ -53,6 +53,21 @@
             android:layout_height="wrap_content" />
 
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_favorite"
+        app:elevation="4dp"
+        app:fabSize="normal"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|right"
+        app:pressedTranslationZ="8dp"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:useCompatPadding="false" />
 
 
 </android.support.design.widget.CoordinatorLayout>

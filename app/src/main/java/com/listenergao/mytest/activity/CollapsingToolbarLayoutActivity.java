@@ -4,7 +4,10 @@ import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
@@ -12,6 +15,7 @@ import com.listenergao.mytest.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CollapsingToolbarLayoutActivity extends BaseActivity {
 
@@ -25,6 +29,8 @@ public class CollapsingToolbarLayoutActivity extends BaseActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
 
     @Override
     protected int getLayoutResId() {
@@ -78,6 +84,8 @@ public class CollapsingToolbarLayoutActivity extends BaseActivity {
                 "无论是同周边国家共商合作大计，还是在多边场合与各国共谋发展之道，习近平主席在峰会期间提出的倡议理念都同二十国集团领导人杭州峰会共识一脉相承、融会贯通，体现出中方推进全球经济治理、构建全球伙伴关系的信心和决心。\n" +
                 "3年前，习近平主席先后提出“一带一路”倡议和亲诚惠容的周边外交理念。春华秋实，三年有成。高举和平发展的旗帜，古老的东方大国，正在一步一个脚印走向世界舞台的中央。\n" +
                 "明年9月，金砖国家领导人第九次会晤将在东海之滨的福建厦门举行。中国，将同各国一道，携手努力，谱写金砖国家合作新篇章，开启建设美好世界的新征程。");
+
+
     }
 
     @Override
@@ -85,4 +93,10 @@ public class CollapsingToolbarLayoutActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.fab)
+    public void onClick(View view) {
+        Snackbar snackbar = Snackbar.make(activityCollapsingToolbarLayout,"已收藏...",Snackbar.LENGTH_LONG);
+        snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        snackbar.show();
+    }
 }
