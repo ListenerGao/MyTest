@@ -45,11 +45,14 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:weightSum="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -81,6 +84,11 @@
                     android:id="@+id/tv_activity_new_widget"
                     style="@style/LeftDrawerFragment_textView"
                     android:text="Android 6.0 新控件" />
+
+                <TextView
+                    android:id="@+id/tv_activity_RxJava"
+                    style="@style/LeftDrawerFragment_textView"
+                    android:text="RxJava测试" />
 
             </LinearLayout>
         </ScrollView>

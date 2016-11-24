@@ -14,12 +14,13 @@ import android.widget.TextView;
 import com.listenergao.mytest.MainActivity;
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.activity.Android6NewWidget;
-import com.listenergao.mytest.activity.TestFragmentActivity;
 import com.listenergao.mytest.activity.DownLoadActivity;
 import com.listenergao.mytest.activity.PopupWindowTest;
+import com.listenergao.mytest.activity.RxJavaTestActivity;
 import com.listenergao.mytest.activity.SettingsActivity;
 import com.listenergao.mytest.activity.TestCheckAll;
 import com.listenergao.mytest.activity.TestCheckOne;
+import com.listenergao.mytest.activity.TestFragmentActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +49,8 @@ public class LeftDrawerFragment extends BaseFragment {
     TextView tvActivityAnim;
     @BindView(R.id.tv_activity_new_widget)
     TextView tvNewWidget;
+    @BindView(R.id.tv_activity_RxJava)
+    TextView tvActivityRxJava;
     private MainActivity mainActivity;
 
     @Nullable
@@ -68,7 +71,7 @@ public class LeftDrawerFragment extends BaseFragment {
         mainActivity = (MainActivity) getActivity();
     }
 
-    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test, R.id.tv_activity_anim, R.id.tv_test1, R.id.tv_activity_new_widget})
+    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test, R.id.tv_activity_anim, R.id.tv_test1, R.id.tv_activity_new_widget,R.id.tv_activity_RxJava})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.settings:     //设置页面
@@ -105,6 +108,11 @@ public class LeftDrawerFragment extends BaseFragment {
                 openActivity(getContext(), Android6NewWidget.class);
                 mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
+            case R.id.tv_activity_RxJava:   //RxJava测试
+                openActivity(getContext(),RxJavaTestActivity.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
+                break;
+
 
         }
     }

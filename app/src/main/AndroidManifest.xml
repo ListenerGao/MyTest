@@ -46,7 +46,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.TabLayoutActivity" />
         </activity>
-        <activity android:name=".activity.NavigationViewActivity"/>
+        <activity android:name=".activity.NavigationViewActivity" />
         <activity android:name=".activity.CoordinatorLayoutActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -66,6 +66,11 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.TabLayoutViewPagerActivity" />
+        </activity>
+        <activity android:name=".activity.RxJavaTestActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.RxJavaTestActivity" />
         </activity>
     </application>
 

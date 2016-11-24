@@ -24,12 +24,12 @@
     <!--侧滑菜单界面 TextView的样式-->
     <style name="LeftDrawerFragment_textView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_height">30dp</item>
         <item name="android:paddingLeft">20dp</item>
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:background">@color/darker_gray</item>
     </style>
 
