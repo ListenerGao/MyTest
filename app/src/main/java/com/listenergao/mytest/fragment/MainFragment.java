@@ -89,7 +89,7 @@ public class MainFragment extends BaseFragment {
         // 设定下拉圆圈的背景
         swipeContainer.setProgressBackgroundColorSchemeColor(Color.WHITE);
         // 设置圆圈的大小
-        swipeContainer.setSize(SwipeRefreshLayout.LARGE);
+        swipeContainer.setSize(SwipeRefreshLayout.DEFAULT);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
