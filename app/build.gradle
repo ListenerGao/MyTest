@@ -40,4 +40,6 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
     // StatusBarUtil 状态栏工具类(参考网址：http://jaeger.itscoder.com/android/2016/03/27/statusbar-util.html)
     compile 'com.jaeger.statusbaruitl:library:1.2.8'
+//    compile 'io.reactivex:rxjava:1.2.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
 }
