@@ -7,18 +7,29 @@
     android:orientation="vertical"
     tools:context="com.listenergao.mytest.activity.RxJavaTestActivity">
 
-    <include layout="@layout/toolbar_layout"/>
+    <include layout="@layout/toolbar_layout" />
 
     <Button
         android:id="@+id/btn_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="开始"
-        />
+        android:text="开始" />
 
     <TextView
         android:id="@+id/tv_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="request" />
+
+    <TextView
+        android:id="@+id/tv_show_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

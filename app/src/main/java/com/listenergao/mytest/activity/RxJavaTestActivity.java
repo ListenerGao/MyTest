@@ -1,11 +1,15 @@
 package com.listenergao.mytest.activity;
 
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.listenergao.mytest.R;
+import com.listenergao.mytest.requestApi.RequestApi;
+import com.listenergao.mytest.requestBean.LatestMsgBean;
+import com.listenergao.mytest.requestBean.ThemeDailyBean;
 import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
@@ -16,6 +20,11 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RxJavaTestActivity extends BaseActivity {
 
@@ -26,8 +35,12 @@ public class RxJavaTestActivity extends BaseActivity {
     LinearLayout activityRxJavaTest;
     @BindView(R.id.btn_start)
     Button btnStart;
+    @BindView(R.id.btn_request)
+    Button btnRequest;
     @BindView(R.id.tv_show)
     TextView tvShow;
+    @BindView(R.id.tv_show_msg)
+    TextView tvShowMsg;
 
     @Override
     protected int getLayoutResId() {
@@ -62,10 +75,10 @@ public class RxJavaTestActivity extends BaseActivity {
             }
         });
         //创建被观察者(方式二)
-        Observable<String> observable= Observable.just("on","on","off","on");
+        Observable<String> observable = Observable.just("on", "on", "off", "on");
 
         //创建被观察者(方式三)
-        String[] array = {"on","on","off","on"};
+        String[] array = {"on", "on", "off", "on"};
         Observable<String> stringObservable = Observable.fromArray(array);
 
         //创建观察者
@@ -88,7 +101,7 @@ public class RxJavaTestActivity extends BaseActivity {
             public void onSubscribe(Disposable d) {
                 disposable = d;
                 Logger.d("onSubscribe执行了....");
-                tvShow.append("onSubscribe方法最先执行....disposable = " + disposable +"\n\n");
+                tvShow.append("onSubscribe方法最先执行....disposable = " + disposable + "\n\n");
             }
 
             @Override
@@ -99,7 +112,7 @@ public class RxJavaTestActivity extends BaseActivity {
                 }
                 //处理传递过来的事件
                 Logger.d("onNext:" + s);
-                tvShow.append("onNext接收的消息:"+s+"\n");
+                tvShow.append("onNext接收的消息:" + s + "\n");
             }
         };
 
@@ -107,8 +120,64 @@ public class RxJavaTestActivity extends BaseActivity {
         observable.subscribe(light);
     }
 
-    @OnClick(R.id.btn_start)
-    public void onClick() {
-        start();
+    private void request() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://news-at.zhihu.com/api/4/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        final RequestApi requestApi = retrofit.create(RequestApi.class);
+        Call<LatestMsgBean> call = requestApi.getLatestMsg();
+        call.enqueue(new Callback<LatestMsgBean>() {
+            @Override
+            public void onResponse(Call<LatestMsgBean> call, Response<LatestMsgBean> response) {
+                LatestMsgBean latestMsgBean = response.body();
+                Logger.d(latestMsgBean);
+            }
+
+            @Override
+            public void onFailure(Call<LatestMsgBean> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void request2() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://news-at.zhihu.com/api/4/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RequestApi requestApi = retrofit.create(RequestApi.class);
+        Call<ThemeDailyBean> themeDaily = requestApi.getThemeDaily(12);
+        themeDaily.enqueue(new Callback<ThemeDailyBean>() {
+            @Override
+            public void onResponse(Call<ThemeDailyBean> call, Response<ThemeDailyBean> response) {
+                ThemeDailyBean themeDailyBean = response.body();
+                Logger.d(themeDailyBean);
+            }
+
+            @Override
+            public void onFailure(Call<ThemeDailyBean> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    @OnClick({R.id.btn_start, R.id.btn_request})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_start:
+                start();
+                break;
+
+            case R.id.btn_request:
+                request();
+                request2();
+                break;
+        }
+
     }
 }
