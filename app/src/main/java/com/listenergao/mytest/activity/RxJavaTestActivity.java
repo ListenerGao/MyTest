@@ -6,10 +6,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.requestApi.RequestApi;
 import com.listenergao.mytest.requestBean.LatestMsgBean;
 import com.listenergao.mytest.requestBean.ThemeDailyBean;
+import com.listenergao.mytest.requestBean.ThemesBean;
 import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
@@ -19,7 +21,10 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,6 +42,8 @@ public class RxJavaTestActivity extends BaseActivity {
     Button btnStart;
     @BindView(R.id.btn_request)
     Button btnRequest;
+    @BindView(R.id.btn_both)
+    Button btnBoth;
     @BindView(R.id.tv_show)
     TextView tvShow;
     @BindView(R.id.tv_show_msg)
@@ -60,6 +67,7 @@ public class RxJavaTestActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
     }
 
     private void start() {
@@ -124,11 +132,12 @@ public class RxJavaTestActivity extends BaseActivity {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://news-at.zhihu.com/api/4/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())     //使用Gson解析,将json串转换为Bean对象.
                 .build();
-
+        //通过代理的方法,得到Api接口.
         final RequestApi requestApi = retrofit.create(RequestApi.class);
         Call<LatestMsgBean> call = requestApi.getLatestMsg();
+        //异步执行Http请求
         call.enqueue(new Callback<LatestMsgBean>() {
             @Override
             public void onResponse(Call<LatestMsgBean> call, Response<LatestMsgBean> response) {
@@ -154,8 +163,10 @@ public class RxJavaTestActivity extends BaseActivity {
         themeDaily.enqueue(new Callback<ThemeDailyBean>() {
             @Override
             public void onResponse(Call<ThemeDailyBean> call, Response<ThemeDailyBean> response) {
-                ThemeDailyBean themeDailyBean = response.body();
-                Logger.d(themeDailyBean);
+                if (response.isSuccessful()) {
+                    ThemeDailyBean themeDailyBean = response.body();
+                    Logger.d(themeDailyBean);
+                }
             }
 
             @Override
@@ -163,10 +174,90 @@ public class RxJavaTestActivity extends BaseActivity {
 
             }
         });
-
     }
 
-    @OnClick({R.id.btn_start, R.id.btn_request})
+    private void useRxJava_Retrofit() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://news-at.zhihu.com/api/4/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        RequestApi requestApi = retrofit.create(RequestApi.class);
+        requestApi.getThemes()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ThemesBean>() {
+                    @Override
+                    public void accept(ThemesBean themesBean) throws Exception {
+                        Logger.d(themesBean.toString());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+
+
+//        new Subscriber<ThemesBean>() {
+//            @Override
+//            public void onSubscribe(Subscription s) {
+//                tvShowMsg.append("onSubscribe \n");
+//                // Flowable并不是订阅就开始发送数据，而是需等到执行Subscription#request才能开始发送数据。
+//                // 当然，使用简化subscribe订阅方法会默认指定Long.MAX_VALUE。
+//                s.request(Long.MAX_VALUE);
+//                Logger.d("onSubscribe:"+s);
+//            }
+//
+//            @Override
+//            public void onNext(ThemesBean themesBean) {
+//                Logger.d(themesBean.toString());
+//                tvShowMsg.append("onNext:" + themesBean.toString() + "\n\n");
+//            }
+//
+//            @Override
+//            public void onError(Throwable t) {
+//                tvShowMsg.append("onError \n");
+//                Logger.d("onError:");
+//                t.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//                tvShowMsg.append("onComplete \n");
+//                Logger.d("onComplete:");
+//            }
+//        }
+
+//        new Observer<ThemesBean>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//                tvShowMsg.append("onSubscribe \n");
+//                Logger.d("onSubscribe:");
+//            }
+//
+//            @Override
+//            public void onNext(ThemesBean themesBean) {
+//                Logger.d(themesBean.toString());
+//                tvShowMsg.append("onNext:" + themesBean.toString() + "\n\n");
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                tvShowMsg.append("onError \n");
+//                Logger.d("onError:" + e.getMessage());
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//                tvShowMsg.append("onComplete \n");
+//                Logger.d("onComplete:");
+//            }
+//        }
+    }
+
+    @OnClick({R.id.btn_start, R.id.btn_request, R.id.btn_both})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_start:
@@ -177,7 +268,10 @@ public class RxJavaTestActivity extends BaseActivity {
                 request();
                 request2();
                 break;
-        }
 
+            case R.id.btn_both:
+                useRxJava_Retrofit();
+                break;
+        }
     }
 }
