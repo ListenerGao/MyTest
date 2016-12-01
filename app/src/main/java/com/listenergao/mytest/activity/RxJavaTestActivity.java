@@ -1,5 +1,6 @@
 package com.listenergao.mytest.activity;
 
+import android.os.CountDownTimer;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,8 @@ import com.listenergao.mytest.requestBean.ThemeDailyBean;
 import com.listenergao.mytest.requestBean.ThemesBean;
 import com.orhanobut.logger.Logger;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +27,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +48,8 @@ public class RxJavaTestActivity extends BaseActivity {
     Button btnRequest;
     @BindView(R.id.btn_both)
     Button btnBoth;
+    @BindView(R.id.btn_send)
+    Button btnSend;
     @BindView(R.id.tv_show)
     TextView tvShow;
     @BindView(R.id.tv_show_msg)
@@ -257,7 +263,79 @@ public class RxJavaTestActivity extends BaseActivity {
 //        }
     }
 
-    @OnClick({R.id.btn_start, R.id.btn_request, R.id.btn_both})
+    /**
+     * 发送验证码
+     * 使用CountDownTimer实现倒计时功能
+     */
+    private void sendVerificationCode() {
+        new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                btnSend.setText(millisUntilFinished / 1000 + "s可再次发送");
+                btnSend.setBackgroundColor(getResources().getColor(R.color.darker_gray));
+                btnSend.setEnabled(false);
+            }
+
+            @Override
+            public void onFinish() {
+                btnSend.setEnabled(true);
+                btnSend.setText("发送验证码");
+                btnSend.setBackgroundColor(getResources().getColor(R.color.color_red));
+            }
+        }.start();
+    }
+
+    /**
+     * 发送验证码
+     * 使用RxJava实现倒计时功能
+     */
+    private void sendVerificationCodeWithRxJava() {
+        final int count = 60;
+        Observable.interval(0, 1, TimeUnit.SECONDS)
+                .map(new Function<Long, Long>() {   //转换
+                    @Override
+                    public Long apply(Long aLong) throws Exception {
+
+                        return count - aLong;
+                    }
+                })
+                .take(count + 1)   //执行60次
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        //执行过程中,设置按钮不可被点击
+                        btnSend.setEnabled(false);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        btnSend.setBackgroundColor(getResources().getColor(R.color.color_grayish));
+                    }
+
+                    @Override
+                    public void onNext(Long value) {
+//                        btnSend.setBackgroundColor(getResources().getColor(R.color.color_grayish));
+                        btnSend.setText(value + "s 后可再次发送验证码");
+                        Logger.d("onNext:" + value);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        btnSend.setEnabled(true);
+                        btnSend.setBackgroundColor(getResources().getColor(R.color.color_red));
+                        btnSend.setText("发送验证码");
+                    }
+                });
+    }
+
+    @OnClick({R.id.btn_start, R.id.btn_request, R.id.btn_both, R.id.btn_send})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_start:
@@ -271,6 +349,11 @@ public class RxJavaTestActivity extends BaseActivity {
 
             case R.id.btn_both:
                 useRxJava_Retrofit();
+                break;
+
+            case R.id.btn_send:
+//                sendVerificationCode();
+                sendVerificationCodeWithRxJava();
                 break;
         }
     }
