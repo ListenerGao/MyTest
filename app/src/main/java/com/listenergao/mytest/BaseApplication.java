@@ -7,12 +7,12 @@ import android.content.Context;
  * Created by ListenerGao on 2016/7/1.
  */
 public class BaseApplication extends Application {
-    private static Context mContext;
+    private static Context sContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = getApplicationContext();
+        sContext = this;
     }
 
     /**
@@ -20,6 +20,6 @@ public class BaseApplication extends Application {
      * @return
      */
     public static Context getApplication(){
-        return mContext;
+        return sContext;
     }
 }

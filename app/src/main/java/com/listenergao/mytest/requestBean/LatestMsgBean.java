@@ -3,7 +3,7 @@ package com.listenergao.mytest.requestBean;
 import java.util.List;
 
 /**
- * Created by admin on 2016/11/28.
+ * Created by ListenerGao on 2016/11/28.
  * <p>
  * 最新消息的数据bean
  */
