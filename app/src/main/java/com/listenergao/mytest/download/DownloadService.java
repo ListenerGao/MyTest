@@ -78,7 +78,7 @@ public class DownloadService extends Service {
                     fileInfo = (FileInfo) msg.obj;
                     Log.d(TAG, "获取到的网络文件长度为:" + fileInfo.getLength());
                     //开启下载任务
-                    task = new DownloadTask(DownloadService.this, mActivityMessenger, fileInfo, 5);
+                    task = new DownloadTask(DownloadService.this, mActivityMessenger, fileInfo, 1);
                     task.download();
                     //将下载任务添加到下载任务集合中
                     mTasks.put(fileInfo.getId(), task);

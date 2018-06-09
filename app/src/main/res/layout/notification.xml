@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
+        android:textColor="@color/black"
         android:text="Small Text" />
 
 
@@ -23,24 +24,25 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_weight="1"
+            
             android:layout_height="wrap_content"
             android:max="100"
              />
         <Button
-            style="?buttonStyleSmall"
             android:id="@+id/bt_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/pb_progressBar"
             android:layout_toEndOf="@+id/tv_file_name"
             android:layout_toRightOf="@+id/tv_file_name"
+            android:textColor="@color/black"
             android:text="下载" />
 
         <Button
-            style="?buttonStyleSmall"
             android:id="@+id/bt_stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="停止" />
     </LinearLayout>
 

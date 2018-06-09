@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v7.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.listenergao.mytest.R;
@@ -39,19 +41,27 @@ public class NotificationUtils {
         //判断通知是否显示了
         if (!mNiNotifications.containsKey(fileInfo.getId())) {
             //创建通知对象
-            Notification notification = new Notification();
+            Notification notification = new NotificationCompat.Builder(mContext).build();
             //设置滚动文字
             notification.tickerText = fileInfo.getFileName() + "开始下载...";
             //设置显示时间
             notification.when = System.currentTimeMillis();
             //设置图标
             notification.icon = R.drawable.ic_notifications;
-            //设置通知特性
-            notification.flags = Notification.FLAG_AUTO_CANCEL;
+
+            //设置通知特性(点击notification时自动消失|发起notification时，铃声和震动均只执行一次)
+            notification.flags = NotificationCompat.FLAG_AUTO_CANCEL|NotificationCompat.FLAG_ONLY_ALERT_ONCE;
+            notification.defaults = NotificationCompat.DEFAULT_ALL;
             //设置点击通知栏的操作
             Intent intent = new Intent(mContext, DownLoadActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(mContext,0,intent,0);
             notification.contentIntent = pendingIntent;
+            //悬挂式Notification，5.0后显示
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                notification.fullScreenIntent = pendingIntent;
+//                notification.category = NotificationCompat.CATEGORY_PROGRESS;
+//                notification.visibility = NotificationCompat.VISIBILITY_PUBLIC;
+//            }
             //创建RemoteView
             RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(),R.layout.notification);
             //设置TextView显示文本
