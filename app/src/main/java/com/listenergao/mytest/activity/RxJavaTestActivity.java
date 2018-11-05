@@ -1,5 +1,6 @@
 package com.listenergao.mytest.activity;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -50,6 +51,8 @@ public class RxJavaTestActivity extends BaseActivity {
     Button btnBoth;
     @BindView(R.id.btn_send)
     Button btnSend;
+    @BindView(R.id.btn_operator)
+    Button mBtnOperator;
     @BindView(R.id.tv_show)
     TextView tvShow;
     @BindView(R.id.tv_show_msg)
@@ -335,7 +338,7 @@ public class RxJavaTestActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.btn_start, R.id.btn_request, R.id.btn_both, R.id.btn_send})
+    @OnClick({R.id.btn_start, R.id.btn_request, R.id.btn_both, R.id.btn_send, R.id.btn_operator})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_start:
@@ -354,6 +357,11 @@ public class RxJavaTestActivity extends BaseActivity {
             case R.id.btn_send:
 //                sendVerificationCode();
                 sendVerificationCodeWithRxJava();
+                break;
+            case R.id.btn_operator:
+                startActivity(new Intent(this, RxJavaOperatorActivity.class));
+                break;
+            default:
                 break;
         }
     }

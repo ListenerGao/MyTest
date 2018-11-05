@@ -35,16 +35,20 @@
         android:id="@+id/btn_both"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="RxJava+Retrofit结合使用"
-        />
+        android:text="RxJava+Retrofit结合使用" />
 
     <Button
         android:id="@+id/btn_send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_red"
-        android:text="发送验证码"
-        />
+        android:text="发送验证码" />
+
+    <Button
+        android:id="@+id/btn_operator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rxjava操作符" />
 
 
 </LinearLayout>

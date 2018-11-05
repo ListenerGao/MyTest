@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_rx_java_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.listenergao.mytest.activity.RxJavaTestActivity">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_create"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="create操作符"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/tv_create_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="map操作符"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/tv_map_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_zip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="zip操作符"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/tv_zip_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_concat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="concat操作符"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/tv_concat_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_flat_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="flatMap操作符"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/tv_flat_map_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_concat_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="concatMap操作符"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/tv_concat_map_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>
