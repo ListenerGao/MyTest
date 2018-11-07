@@ -90,6 +90,49 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <Button
+                android:id="@+id/btn_distinct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="distinct操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="filter操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_buffer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="buffer操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_timer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="timer操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_interval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="interval操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_do_on_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="doOnNext"
+                android:textAllCaps="false" />
+
+
         </LinearLayout>
 
 

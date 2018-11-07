@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.listenergao.mytest.R;
 
@@ -22,12 +23,12 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -66,6 +67,19 @@ public class RxJavaOperatorActivity extends BaseActivity {
     TextView mTvConcatMapContent;
     @BindView(R.id.activity_rx_java_test)
     LinearLayout activityRxJavaTest;
+    @BindView(R.id.btn_distinct)
+    Button mBtnDistinct;
+    @BindView(R.id.btn_filter)
+    Button mBtnFilter;
+    @BindView(R.id.btn_buffer)
+    Button mBtnBuffer;
+    @BindView(R.id.btn_timer)
+    Button mBtnTimer;
+    @BindView(R.id.btn_interval)
+    Button mBtnInterval;
+    private Disposable mDisposable;
+    @BindView(R.id.btn_do_on_next)
+    Button mSendCode;
 
     @Override
     protected int getLayoutResId() {
@@ -88,7 +102,8 @@ public class RxJavaOperatorActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_create, R.id.btn_map, R.id.btn_zip, R.id.btn_concat, R.id.btn_flat_map, R.id.btn_concat_map})
+    @OnClick({R.id.btn_create, R.id.btn_map, R.id.btn_zip, R.id.btn_concat, R.id.btn_flat_map, R.id.btn_concat_map,
+            R.id.btn_distinct, R.id.btn_filter, R.id.btn_buffer, R.id.btn_timer, R.id.btn_interval, R.id.btn_do_on_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_create:
@@ -108,6 +123,24 @@ public class RxJavaOperatorActivity extends BaseActivity {
                 break;
             case R.id.btn_concat_map:
                 concatMap();
+                break;
+            case R.id.btn_distinct:
+                distinct();
+                break;
+            case R.id.btn_filter:
+                filter();
+                break;
+            case R.id.btn_buffer:
+                buffer();
+                break;
+            case R.id.btn_timer:
+                timer();
+                break;
+            case R.id.btn_interval:
+                interval();
+                break;
+            case R.id.btn_do_on_next:
+                doOnNext();
                 break;
             default:
                 break;
@@ -350,4 +383,120 @@ public class RxJavaOperatorActivity extends BaseActivity {
 
     }
 
+    /**
+     * distinct 去重，sorted 排序
+     */
+    @SuppressLint("CheckResult")
+    private void distinct() {
+        Observable.just(1, 4, 7, 2, 3, 4, 5, 8, 5, 6)
+                .distinct()
+                .sorted()
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        Log.d("gys", "accept    integer = " + integer);
+                    }
+                });
+    }
+
+    /**
+     * filter 过滤器
+     */
+    @SuppressLint("CheckResult")
+    private void filter() {
+        Observable.just(10, 20, 30, 40, 50, 60)
+                .filter(new Predicate<Integer>() {
+                    @Override
+                    public boolean test(Integer integer) throws Exception {
+                        return integer >= 20;
+                    }
+                }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                Log.d("gys", "accept    integer = " + integer);
+            }
+        });
+    }
+
+    /**
+     * 我们把 1, 2, 3, 4, 5 依次发射出来，经过 buffer 操作符，其中参数 skip 为 2， count 为 3，而我们的输出 依次是 123，345，5。
+     * 显而易见，我们 buffer 的第一个参数是 count，代表最大取值，在事件足够的时候，一般都是取 count 个值，然后每次跳过 skip 个事件。
+     */
+    @SuppressLint("CheckResult")
+    private void buffer() {
+        Observable.just(1, 2, 3, 4, 5)
+                .buffer(3, 2)
+                .subscribe(new Consumer<List<Integer>>() {
+                    @Override
+                    public void accept(List<Integer> integers) throws Exception {
+                        Log.d("gys", "size = " + integers.size());
+                        for (Integer integer : integers) {
+                            Log.d("gys", "integer = " + integer);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * timer 定时任务。
+     * 注意：timer 默认在新线程，所以需要切换回主线程
+     */
+    @SuppressLint("CheckResult")
+    private void timer() {
+        Observable.timer(3, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                //切换到主线程
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        Log.d("gys", "aLong = " + aLong);
+                        Toast.makeText(RxJavaOperatorActivity.this, "测试", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    /**
+     * interval 用于间隔时间执行某个操作，其接受三个参数，分别是第一次发送延迟，间隔时间，时间单位。
+     * 注意：interval 默认在新线程，所以需要切换回主线程
+     */
+    @SuppressLint("CheckResult")
+    private void interval() {
+        mDisposable = Observable.interval(2, 2, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        Log.d("gys", "aLong = " + aLong);
+                    }
+                });
+    }
+
+    /**
+     * doOnNext 应该不算一个操作符，但考虑到其常用性。它的作用是让订阅者在接收到数据之前干点有意思的事情，可以对数据进行操作处理。
+     */
+    @SuppressLint("CheckResult")
+    private void doOnNext() {
+        Observable.just(1, 3, 5, 7, 9)
+                .doOnNext(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        Log.d("gys", "doOnNext  integer = " + integer);
+                    }
+                }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                Log.d("gys", "accept  integer = " + integer);
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mDisposable != null && !mDisposable.isDisposed()) {
+            mDisposable.dispose();
+        }
+    }
 }
