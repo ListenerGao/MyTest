@@ -13,6 +13,8 @@ import com.listenergao.mytest.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -23,6 +25,8 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
@@ -77,9 +81,31 @@ public class RxJavaOperatorActivity extends BaseActivity {
     Button mBtnTimer;
     @BindView(R.id.btn_interval)
     Button mBtnInterval;
+    @BindView(R.id.btn_skip)
+    Button mBtnSkip;
+    @BindView(R.id.btn_take)
+    Button mBtnTake;
+    @BindView(R.id.btn_just)
+    Button mBtnJust;
+    @BindView(R.id.btn_single)
+    Button mBtnSingle;
+    @BindView(R.id.btn_debounce)
+    Button mBtnDebounce;
+    @BindView(R.id.btn_defer)
+    Button mBtnDefer;
+    @BindView(R.id.btn_last)
+    Button mBtnLast;
+    @BindView(R.id.btn_merge)
+    Button mBtnMerge;
+    @BindView(R.id.btn_reduce)
+    Button mBtnReduce;
+    @BindView(R.id.btn_scan)
+    Button mBtnScan;
+    @BindView(R.id.btn_window)
+    Button mBtnWindow;
     private Disposable mDisposable;
     @BindView(R.id.btn_do_on_next)
-    Button mSendCode;
+    Button mBtnDoOnNext;
 
     @Override
     protected int getLayoutResId() {
@@ -103,7 +129,9 @@ public class RxJavaOperatorActivity extends BaseActivity {
 
 
     @OnClick({R.id.btn_create, R.id.btn_map, R.id.btn_zip, R.id.btn_concat, R.id.btn_flat_map, R.id.btn_concat_map,
-            R.id.btn_distinct, R.id.btn_filter, R.id.btn_buffer, R.id.btn_timer, R.id.btn_interval, R.id.btn_do_on_next})
+            R.id.btn_distinct, R.id.btn_filter, R.id.btn_buffer, R.id.btn_timer, R.id.btn_interval, R.id.btn_do_on_next,
+            R.id.btn_skip, R.id.btn_take, R.id.btn_just, R.id.btn_single, R.id.btn_debounce, R.id.btn_defer, R.id.btn_last,
+            R.id.btn_merge, R.id.btn_reduce, R.id.btn_scan, R.id.btn_window})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_create:
@@ -141,6 +169,39 @@ public class RxJavaOperatorActivity extends BaseActivity {
                 break;
             case R.id.btn_do_on_next:
                 doOnNext();
+                break;
+            case R.id.btn_skip:
+                skip();
+                break;
+            case R.id.btn_take:
+                take();
+                break;
+            case R.id.btn_just:
+                just();
+                break;
+            case R.id.btn_single:
+                single();
+                break;
+            case R.id.btn_debounce:
+                debounce();
+                break;
+            case R.id.btn_defer:
+                defer();
+                break;
+            case R.id.btn_last:
+                last();
+                break;
+            case R.id.btn_merge:
+                merge();
+                break;
+            case R.id.btn_reduce:
+                reduce();
+                break;
+            case R.id.btn_scan:
+                scan();
+                break;
+            case R.id.btn_window:
+                window();
                 break;
             default:
                 break;
@@ -490,6 +551,236 @@ public class RxJavaOperatorActivity extends BaseActivity {
                 Log.d("gys", "accept  integer = " + integer);
             }
         });
+    }
+
+    /**
+     * skip 很有意思，其实作用就和字面意思一样，接受一个 long 型参数 count ，代表跳过 count 个数目开始接收。
+     */
+    @SuppressLint("CheckResult")
+    private void skip() {
+        Observable.just(1, 2, 3, 4, 5)
+                .skip(3)
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        Log.d("gys", "integer = " + integer);
+                    }
+                });
+
+    }
+
+    /**
+     * take，接受一个 long 型参数 count ，代表至多接收 count 个数据。
+     */
+    @SuppressLint("CheckResult")
+    private void take() {
+        Observable.just(1, 2, 3, 4, 5)
+                .take(2)
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        Log.d("gys", "integer = " + integer);
+                    }
+                });
+    }
+
+    /**
+     * just，没什么好说的，其实在前面各种例子都说明了，就是一个简单的发射器依次调用 onNext() 方法。
+     */
+    private void just() {
+
+    }
+
+    /**
+     * Single 只会接收一个参数，而 SingleObserver 只会调用 onError() 或者 onSuccess()。
+     */
+    @SuppressLint("CheckResult")
+    private void single() {
+        Log.d("gys", "random = " + new Random().nextInt());
+        Single.just(new Random().nextInt())
+                .subscribe(new SingleObserver<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d("gys", "onSubscribe");
+                    }
+
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        Log.d("gys", "onSuccess  integer = " + integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("gys", "onError");
+                    }
+                });
+    }
+
+    /**
+     * debounce 去除发送频率过快的项，看起来好像没啥用处，但你信我，后面绝对有地方很有用武之地。
+     * <p>
+     * 代码很清晰，去除发送间隔时间小于 500 毫秒的发射事件，所以 1 和 3 被去掉了。
+     */
+    @SuppressLint("CheckResult")
+    private void debounce() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                Log.d("gys", "subscribe current thread = " + Thread.currentThread().getName());
+                emitter.onNext(1);
+                Thread.sleep(400);
+                emitter.onNext(2);
+                Thread.sleep(505);
+                emitter.onNext(3);
+                Thread.sleep(100);
+                emitter.onNext(4);
+                Thread.sleep(605);
+                emitter.onNext(5);
+                Thread.sleep(510);
+                emitter.onComplete();
+
+            }
+        }).debounce(500, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        Log.d("gys", "accept current thread = " + Thread.currentThread().getName());
+                        Log.d("gys", "accept  integer = " + integer);
+                    }
+                });
+    }
+
+    /**
+     * defer 简单地时候就是每次订阅都会创建一个新的 Observable，并且如果没有被订阅，就不会产生新的 Observable。
+     */
+    private void defer() {
+        Observable<Integer> observable = Observable.defer(new Callable<ObservableSource<Integer>>() {
+            @Override
+            public ObservableSource<Integer> call() throws Exception {
+                return Observable.just(1, 2, 3);
+            }
+        });
+
+        observable.subscribe(new Observer<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.d("gys", "onSubscribe   d = " + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                Log.d("gys", "integer = " + integer);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("gys", "onError = " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("gys", "onComplete");
+            }
+        });
+    }
+
+    /**
+     * last 操作符仅取出可观察到的最后一个值，或者是满足某些条件的最后一项。
+     */
+    @SuppressLint("CheckResult")
+    private void last() {
+        Observable.just(1, 2, 3, 4, 5, 6)
+                .last(3)
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        Log.d("gys", "integer = " + integer);
+                    }
+                });
+
+    }
+
+    /**
+     * merge 顾名思义，熟悉版本控制工具的你一定不会不知道 merge 命令，而在 Rx 操作符中，merge 的作用是把多个 Observable 结合起来，接受可变参数，也支持迭代器集合。
+     * 注意它和 concat 的区别在于，不用等到 发射器 A 发送完所有的事件再进行发射器 B 的发送。
+     */
+    @SuppressLint("CheckResult")
+    private void merge() {
+        Observable.merge(Observable.just(4, 5), Observable.just(1, 2, 3))
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        Log.d("gys", " integer = " + integer);
+                    }
+                });
+
+    }
+
+    /**
+     * reduce 操作符每次用一个方法处理一个值，可以有一个 seed 作为初始值。
+     * 代码中，我们中间采用 reduce ，支持一个 function 为两数值相加，所以应该最后的值是：1 + 2 = 3 + 3 = 6 。
+     */
+    @SuppressLint("CheckResult")
+    private void reduce() {
+        Observable.just(1, 2, 3)
+                .reduce(new BiFunction<Integer, Integer, Integer>() {
+                    @Override
+                    public Integer apply(Integer integer, Integer integer2) throws Exception {
+                        return integer + integer2;
+                    }
+                }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                Log.d("gys", "sum = " + integer);
+            }
+        });
+    }
+
+    /**
+     * scan 操作符作用和上面的 reduce 一致，唯一区别是 reduce 是个只追求结果的坏人，而 scan 会始终如一地把每一个步骤都输出。
+     */
+    @SuppressLint("CheckResult")
+    private void scan() {
+        Observable.just(1, 2, 3)
+                .scan(new BiFunction<Integer, Integer, Integer>() {
+                    @Override
+                    public Integer apply(Integer integer, Integer integer2) throws Exception {
+                        return integer + integer2;
+                    }
+                }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                Log.d("gys", "integer = " + integer);
+            }
+        });
+    }
+
+    /**
+     * window 按照实际划分窗口，将数据发送给不同的 Observable
+     */
+    @SuppressLint("CheckResult")
+    private void window() {
+        Observable.interval(1, TimeUnit.SECONDS)
+                .take(6)
+                .window(3)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Observable<Long>>() {
+                    @Override
+                    public void accept(Observable<Long> longObservable) throws Exception {
+                        Log.e("gys", "Sub Divide begin...\n");
+                        longObservable.subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<Long>() {
+                                    @Override
+                                    public void accept(Long aLong) throws Exception {
+                                        Log.d("gys", "aLong = " + aLong);
+                                    }
+                                });
+                    }
+                });
     }
 
     @Override

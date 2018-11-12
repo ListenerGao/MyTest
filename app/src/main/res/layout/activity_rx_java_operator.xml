@@ -132,6 +132,83 @@
                 android:text="doOnNext"
                 android:textAllCaps="false" />
 
+            <Button
+                android:id="@+id/btn_skip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="skip操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_take"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="take操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_just"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="just操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_single"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="single操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_debounce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="debounce操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_defer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="defer操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_last"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="last操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_merge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="merge操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_reduce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="reduce操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_scan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="scan操作符"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_window"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="window操作符"
+                android:textAllCaps="false" />
+
 
         </LinearLayout>
 
