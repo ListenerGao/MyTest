@@ -1,7 +1,6 @@
 package com.listenergao.mytest.activity;
 
 import android.annotation.SuppressLint;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -9,9 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
+import com.blankj.utilcode.util.LogUtils;
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.requestBean.WxArticleBean;
+import com.listenergao.mytest.utils.GsonUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +49,7 @@ public class RxJavaSimpleActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
         ButterKnife.bind(this);
         mToolbar.setTitle("RxJava示例");
         setSupportActionBar(mToolbar);
@@ -92,7 +93,7 @@ public class RxJavaSimpleActivity extends BaseActivity {
                     String json = response.body().string();
                     Log.d("gys", "json = " + json);
                     if (!TextUtils.isEmpty(json)) {
-                        return new Gson().fromJson(json, WxArticleBean.class);
+                        return GsonUtils.fromJson(json, WxArticleBean.class);
                     }
                     Log.d("gys", "json = null 1");
                     return null;
@@ -105,7 +106,7 @@ public class RxJavaSimpleActivity extends BaseActivity {
                     @Override
                     public void accept(WxArticleBean wxArticleBean) throws Exception {
                         //此处可以缓存数据等操作
-//                        LogUtils.json("gys", wxArticleBean.toString());
+                        LogUtils.json("gys", wxArticleBean.toString());
                     }
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -4,10 +4,9 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Environment;
 import android.os.IBinder;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 
 import com.listenergao.mytest.R;
 import com.orhanobut.logger.Logger;
@@ -24,7 +23,7 @@ import okhttp3.Call;
  */
 public class UpdateService1 extends Service {
     private static final String downloadUrl = "http://182.92.6.139:80/apk/school_2.17_117.apk";
-    private static final String TAG ="UpdateService1" ;
+    private static final String TAG = "UpdateService1";
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mNotificationManager;
 
@@ -58,25 +57,25 @@ public class UpdateService1 extends Service {
                     @Override
                     public void inProgress(float progress, long total, int id) {
                         super.inProgress(progress, total, id);
-                        int nowProgress = (int)(progress * 100);
+                        int nowProgress = (int) (progress * 100);
                         if (nowProgress >= 100) {
-                            mBuilder.setProgress(0,0,false);    //移除进度条
+                            mBuilder.setProgress(0, 0, false);    //移除进度条
                             mBuilder.setContentTitle("下载完成,点击安装");
                             stopSelf(); //停止服务
 
-                        }else {
+                        } else {
                             if (nowProgress > 0) {
                                 mBuilder.setDefaults(Notification.COLOR_DEFAULT);
                             }
-                            if (nowProgress % 10 == 0){
+                            if (nowProgress % 10 == 0) {
                                 //注意:此方法在4.0以后版本才有用.如果需要支持早期版本,需使用RemoteViews来自定义视图
-                                mBuilder.setProgress(100,nowProgress,false);
+                                mBuilder.setProgress(100, nowProgress, false);
                                 mBuilder.setContentTitle("正在下载...");
 //                            mBuilder.setOngoing(true);
                             }
                         }
-                        mNotificationManager.notify(1,mBuilder.build());
-                        Logger.d("total = " + total +",progress = " +(progress * 100));
+                        mNotificationManager.notify(1, mBuilder.build());
+                        Logger.d("total = " + total + ",progress = " + (progress * 100));
                     }
                 });
 
