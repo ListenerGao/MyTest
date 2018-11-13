@@ -57,6 +57,8 @@ public class RxJavaTestActivity extends BaseActivity {
     TextView tvShow;
     @BindView(R.id.tv_show_msg)
     TextView tvShowMsg;
+    @BindView(R.id.btn_simple)
+    Button mBtnSimple;
 
     @Override
     protected int getLayoutResId() {
@@ -338,7 +340,7 @@ public class RxJavaTestActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.btn_start, R.id.btn_request, R.id.btn_both, R.id.btn_send, R.id.btn_operator})
+    @OnClick({R.id.btn_start, R.id.btn_request, R.id.btn_both, R.id.btn_send, R.id.btn_operator, R.id.btn_simple})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_start:
@@ -360,6 +362,9 @@ public class RxJavaTestActivity extends BaseActivity {
                 break;
             case R.id.btn_operator:
                 startActivity(new Intent(this, RxJavaOperatorActivity.class));
+                break;
+            case R.id.btn_simple:
+                startActivity(new Intent(this, RxJavaSimpleActivity.class));
                 break;
             default:
                 break;

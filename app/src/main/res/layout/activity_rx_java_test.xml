@@ -48,7 +48,13 @@
         android:id="@+id/btn_operator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Rxjava操作符" />
+        android:text="RxJava操作符" />
+
+    <Button
+        android:id="@+id/btn_simple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RxJava示例" />
 
 
 </LinearLayout>
