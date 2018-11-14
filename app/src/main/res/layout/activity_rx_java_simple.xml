@@ -26,6 +26,17 @@
                 android:layout_height="wrap_content"
                 android:text="网络请求" />
 
+            <TextView
+                android:id="@+id/tv_cache_request_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_cache_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="缓存+网络请求" />
+
 
         </LinearLayout>
     </ScrollView>
