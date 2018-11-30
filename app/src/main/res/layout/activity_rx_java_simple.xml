@@ -37,6 +37,35 @@
                 android:layout_height="wrap_content"
                 android:text="缓存+网络请求" />
 
+            <TextView
+                android:id="@+id/tv_multiple_request_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_multiple_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="多个网络请求依赖" />
+
+            <TextView
+                android:id="@+id/tv_interval_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_interval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="间隔心跳任务" />
+
+            <Button
+                android:id="@+id/btn_interval_range"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="获取验证码" />
+
+
 
         </LinearLayout>
     </ScrollView>
