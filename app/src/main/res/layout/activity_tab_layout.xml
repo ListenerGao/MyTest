@@ -10,7 +10,7 @@
 
     <include layout="@layout/toolbar_layout" />
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:tabSelectedTextColor="@android:color/holo_blue_bright"
         app:tabTextColor="@android:color/black">
 
-    </android.support.design.widget.TabLayout>
+    </com.google.android.material.tabs.TabLayout>
 
     <Button
         android:id="@+id/bt_tl_viewpager"

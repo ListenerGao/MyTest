@@ -1,7 +1,7 @@
 package com.listenergao.mytest.activity;
 
 import android.annotation.SuppressLint;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;

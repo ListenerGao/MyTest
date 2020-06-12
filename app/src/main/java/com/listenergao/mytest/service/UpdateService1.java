@@ -6,7 +6,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Environment;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 
 import com.listenergao.mytest.R;
 import com.orhanobut.logger.Logger;

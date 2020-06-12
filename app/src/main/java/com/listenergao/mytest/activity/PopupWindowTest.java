@@ -1,7 +1,7 @@
 package com.listenergao.mytest.activity;
 
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
