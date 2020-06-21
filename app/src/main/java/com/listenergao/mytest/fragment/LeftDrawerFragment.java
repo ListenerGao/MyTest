@@ -1,9 +1,7 @@
 package com.listenergao.mytest.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.listenergao.mytest.MainActivity;
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.activity.Android6NewWidget;
 import com.listenergao.mytest.activity.DownLoadActivity;
+import com.listenergao.mytest.activity.JetPackActivity;
 import com.listenergao.mytest.activity.PopupWindowTest;
 import com.listenergao.mytest.activity.RxJavaTestActivity;
 import com.listenergao.mytest.activity.SettingsActivity;
@@ -71,55 +72,59 @@ public class LeftDrawerFragment extends BaseFragment {
         mainActivity = (MainActivity) getActivity();
     }
 
-    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test, R.id.tv_activity_anim, R.id.tv_test1, R.id.tv_activity_new_widget,R.id.tv_activity_RxJava})
+    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test,
+            R.id.tv_activity_anim, R.id.tv_test1, R.id.tv_activity_new_widget,
+            R.id.tv_activity_RxJava, R.id.tv_activity_jetpack})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.settings:     //设置页面
-                openActivity(getContext(), SettingsActivity.class);
-                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);    //关闭侧滑菜单
+                openActivity(SettingsActivity.class);
                 break;
             case R.id.about_us:
                 break;
             case R.id.tv_popupwindow:   //PopupWindow测试页面
-                openActivity(getContext(), PopupWindowTest.class);
-                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
+                openActivity(PopupWindowTest.class);
                 break;
             case R.id.tv_download:  //断点续传下载
-                openActivity(getContext(), DownLoadActivity.class);
-                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
+                openActivity(DownLoadActivity.class);
                 break;
 
             case R.id.tv_test:  //ListView实现全选
-                openActivity(getContext(), TestCheckAll.class);
-                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
+                openActivity(TestCheckAll.class);
                 break;
 
             case R.id.tv_test1:     //ListView实现单选
-                openActivity(getContext(), TestCheckOne.class);
-                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
+                openActivity(TestCheckOne.class);
                 break;
 
             case R.id.tv_activity_anim:     //Fragment测试
-                openActivity(getContext(), TestFragmentActivity.class);
-                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
+                openActivity(TestFragmentActivity.class);
                 break;
 
             case R.id.tv_activity_new_widget:   //Android6.0新控件测试
-                openActivity(getContext(), Android6NewWidget.class);
-                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
+                openActivity(Android6NewWidget.class);
                 break;
             case R.id.tv_activity_RxJava:   //RxJava测试
-                openActivity(getContext(),RxJavaTestActivity.class);
-                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
+                openActivity(RxJavaTestActivity.class);
+                break;
+
+            case R.id.tv_activity_jetpack: //jetpack测试
+                openActivity(JetPackActivity.class);
+                break;
+
+            default:
                 break;
 
 
         }
+        mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);    //关闭侧滑菜单
     }
 
 
-    public void openActivity(Context context, Class clazz) {
-        Intent intent = new Intent(context, clazz);
-        startActivity(intent);
+    private void openActivity(Class clazz) {
+        if (getContext() != null) {
+            Intent intent = new Intent(getContext(), clazz);
+            startActivity(intent);
+        }
     }
 }

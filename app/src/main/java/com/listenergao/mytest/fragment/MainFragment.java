@@ -4,16 +4,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.data.NewsAdapter;
@@ -32,7 +32,6 @@ import okhttp3.Request;
 
 /**
  * Created by ListenerGao on 2016/6/22.
- *
  */
 public class MainFragment extends BaseFragment {
 
@@ -54,14 +53,14 @@ public class MainFragment extends BaseFragment {
     private boolean isRefreshing = false;   //是否正在刷新
     private static final int VIEWPAGER_MSG = 0x110;
     private int viewPagerPosition;
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             viewPagerPosition++;
             viewPagerPosition %= mNewsData.getTop_stories().size();
             topImgViewPager.setCurrentItem(viewPagerPosition);
-            mHandler.sendEmptyMessageDelayed(VIEWPAGER_MSG,3000);
+            mHandler.sendEmptyMessageDelayed(VIEWPAGER_MSG, 3000);
         }
     };
 
@@ -109,7 +108,7 @@ public class MainFragment extends BaseFragment {
 
     private void requestData() {
         swipeContainer.setRefreshing(true); //显示刷新进度条
-        OkHttpManager.getAsyn("http://news-at.zhihu.com/api/4/news/latest", new OkHttpManager.ResultCallback<NewsMsgBean>() {
+        OkHttpManager.getAsyn("https://news-at.zhihu.com/api/4/news/latest", new OkHttpManager.ResultCallback<NewsMsgBean>() {
 
             @Override
             public void onError(Request request, Exception e) {
@@ -125,17 +124,18 @@ public class MainFragment extends BaseFragment {
                 Logger.d(response);
                 mNewsData = response;
                 List<NewsMsgBean.TopStoriesBean> top_stories = mNewsData.getTop_stories();
+                if (getContext() != null) {
+                    adapter = new NewsAdapter(getContext(), mNewsData.getStories());
+                    recycleView.setAdapter(adapter);
+                    setHeader(recycleView);
 
-                adapter = new NewsAdapter(getActivity(), mNewsData.getStories());
-                recycleView.setAdapter(adapter);
-                setHeader(recycleView);
-
-                TopImgsPagerAdapter pagerAdapter = new TopImgsPagerAdapter(UiUtils.getContext(),top_stories);
-                topImgViewPager.setAdapter(pagerAdapter);
-                //将指示器与ViewPager关联
-                indicator.setViewPager(topImgViewPager);
-                //ViewPager的轮播
-                mHandler.sendEmptyMessage(0);
+                    TopImgsPagerAdapter pagerAdapter = new TopImgsPagerAdapter(UiUtils.getContext(), top_stories);
+                    topImgViewPager.setAdapter(pagerAdapter);
+                    //将指示器与ViewPager关联
+                    indicator.setViewPager(topImgViewPager);
+                    //ViewPager的轮播
+                    mHandler.sendEmptyMessage(0);
+                }
             }
 
         });

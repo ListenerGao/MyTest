@@ -3,6 +3,7 @@ package com.listenergao.mytest.utils;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
@@ -13,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -26,14 +28,24 @@ import okhttp3.Response;
  */
 public class OkHttpManager {
 
+    private static final String TAG = "OkHttpManager";
+
     private static OkHttpManager mInstance;
     private final OkHttpClient mOkHttpClient;
     private Handler mDelivery;
     private Gson mGson;
+    /**
+     * 超时时间
+     */
+    private static final int TIMEOUT = 10;
 
 
     private OkHttpManager() {
-        mOkHttpClient = new OkHttpClient();
+        mOkHttpClient = new OkHttpClient().newBuilder()
+                .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .build();
         mDelivery = new Handler(Looper.getMainLooper());
         mGson = new Gson();
 
@@ -115,6 +127,7 @@ public class OkHttpManager {
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                Log.d(TAG, "fail:" + e.getMessage());
                 sendFailedStringCallback(request, e, callback);
             }
 
@@ -123,6 +136,7 @@ public class OkHttpManager {
 
                 try {
                     String string = response.body().string();
+                    Log.d(TAG, "success:" + string);
                     if (callback.mType == String.class) {
                         sendSuccessResultCallback(string, callback);
                     } else {

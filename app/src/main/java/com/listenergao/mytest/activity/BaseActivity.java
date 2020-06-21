@@ -3,8 +3,10 @@ package com.listenergao.mytest.activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,6 +37,10 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 初始化数据
      */
     protected abstract void initData();
+
+    protected View getContentView() {
+        return new View(this);
+    }
 
     public String getToolbarTitle() {
         if (TextUtils.isEmpty(title)) {
@@ -70,6 +76,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 //            mToolBar = (Toolbar) findViewById(R.id.toolbar);
 //            mToolBar.setNavigationIcon(R.drawable.arrow_left);
 //            mToolBar.setNavigationOnClickListener(this);
+        } else {
+            setContentView(getContentView());
         }
         initView();
         if (savedInstanceState == null) {   //处理当屏幕发生旋转时,Fragment会重建,导致界面出现覆盖的问题.

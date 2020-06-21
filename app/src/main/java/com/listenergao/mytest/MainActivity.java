@@ -1,16 +1,16 @@
 package com.listenergao.mytest;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.core.view.MenuItemCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 
 import com.listenergao.mytest.activity.BaseActivity;
 import com.listenergao.mytest.fragment.LeftDrawerFragment;
@@ -86,14 +86,15 @@ public class MainActivity extends BaseActivity {
      * 初始化主界面和菜单界面
      */
     private void initFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();   //开启事务
-        fragmentTransaction.add(R.id.content_frame, new MainFragment(), TAG_MAIN_MENU);   //主页面
-        fragmentTransaction.add(R.id.left_drawer, new LeftDrawerFragment(), TAG_LEFT_MENU);//侧拉菜单页
-        fragmentTransaction.commit();   //提交事务
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()  //开启事务
+                .add(R.id.content_frame, new MainFragment(), TAG_MAIN_MENU) //主页面
+                .add(R.id.left_drawer, new LeftDrawerFragment(), TAG_LEFT_MENU) //侧拉菜单页
+                .commit();  //提交事务
 
         MainFragment mainFragment = (MainFragment) fragmentManager.findFragmentByTag(TAG_MAIN_MENU);
+
 
     }
 
@@ -112,7 +113,7 @@ public class MainActivity extends BaseActivity {
         //得到searchView对象
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         //设置SearchView打开关闭的监听事件
-        MenuItemCompat.setOnActionExpandListener(searchItem,expandListener);
+        MenuItemCompat.setOnActionExpandListener(searchItem, expandListener);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -127,6 +128,7 @@ public class MainActivity extends BaseActivity {
             // 返回true 打开搜索扩展视图,否则不会打开视图
             return true;
         }
+
         //关闭
         @Override
         public boolean onMenuItemActionCollapse(MenuItem item) {

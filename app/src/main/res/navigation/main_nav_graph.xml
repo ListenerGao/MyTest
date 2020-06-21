@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/mainNavigationFragment">
+
+    <!--
+    name：指明源地址
+    id：帮助其它fragment的action元素链接到自己
+    label：布局文件描述
+    layout：布局文件
+    action：描述fragment可以执行跳转的目标
+    argument：描述fragment执行跳转携带的参数
+    -->
+    <fragment
+        android:id="@+id/mainNavigationFragment"
+        android:name="com.listenergao.mytest.fragment.MainNavigationFragment"
+        android:label="fragment_main_navigation"
+        tools:layout="@layout/fragment_main_navigation">
+
+        <!--
+        id：帮助后台发现和执行这个action
+        destination：指明前往的目标
+        anim：转场动画
+        popUpTo：指明需要跨级返回的源
+        -->
+
+        <action
+            android:id="@+id/action_mainFragment_to_navigationOne"
+            app:destination="@id/navigationFragmentOne"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_navigationTwo"
+            app:destination="@id/navigationFragmentTwo"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+
+        <action
+            android:id="@+id/action_mainFragment_to_navigationThree"
+            app:destination="@id/navigationFragmentThree"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigationFragmentOne"
+        android:name="com.listenergao.mytest.fragment.NavigationFragmentOne"
+        android:label="fragment_navigation_one"
+        tools:layout="@layout/fragment_navigation_one">
+
+        <action
+            android:id="@+id/action_navigationOne_to_navigationTwo"
+            app:destination="@id/navigationFragmentTwo"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigationFragmentTwo"
+        android:name="com.listenergao.mytest.fragment.NavigationFragmentTwo"
+        android:label="fragment_navigation_two"
+        tools:layout="@layout/fragment_navigation_two">
+
+        <action
+            android:id="@+id/action_navigationTwo_to_navigationThree"
+            app:destination="@id/navigationFragmentThree"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <!--
+        name：描述参数名
+        argType：描述参数类型
+        defaultValue：描述默认值，当没有传参时
+        -->
+        <argument
+            android:name="args_value_one"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+        <argument
+            android:name="args_value_two"
+            android:defaultValue="null"
+            app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigationFragmentThree"
+        android:name="com.listenergao.mytest.fragment.NavigationFragmentThree"
+        android:label="fragment_navigation_three"
+        tools:layout="@layout/fragment_navigation_three">
+
+        <action
+            android:id="@+id/action_navigationThree_to_navigationOne"
+            app:destination="@id/navigationFragmentOne"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+</navigation>

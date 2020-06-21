@@ -46,14 +46,13 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            >
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:weightSum="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/tv_popupwindow"
@@ -90,6 +89,11 @@
                     style="@style/LeftDrawerFragment_textView"
                     android:text="RxJava测试" />
 
+                <TextView
+                    android:id="@+id/tv_activity_jetpack"
+                    style="@style/LeftDrawerFragment_textView"
+                    android:text="jetpack测试" />
+
             </LinearLayout>
         </ScrollView>
 
@@ -97,8 +101,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
             android:layout_alignParentBottom="true"
+            android:background="@color/white"
             android:orientation="horizontal"
             android:weightSum="2">
 
