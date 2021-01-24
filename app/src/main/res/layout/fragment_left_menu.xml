@@ -94,6 +94,11 @@
                     style="@style/LeftDrawerFragment_textView"
                     android:text="jetpack测试" />
 
+                <TextView
+                    android:id="@+id/tv_activity_option"
+                    style="@style/LeftDrawerFragment_textView"
+                    android:text="Activity转场动画" />
+
             </LinearLayout>
         </ScrollView>
 

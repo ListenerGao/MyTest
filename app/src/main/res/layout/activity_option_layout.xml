@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/hacker"
+        android:transitionName="Shared Element"/>
+
+    <Button
+        android:id="@+id/btn_activity_option_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity转场动画一"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_activity_option_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity转场动画二"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_activity_option_three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity转场动画三"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_activity_option_four"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity转场动画四"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_activity_option_five"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity转场动画五"
+        android:textAllCaps="false" />
+
+
+</LinearLayout>

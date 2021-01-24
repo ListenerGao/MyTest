@@ -16,6 +16,7 @@ import com.listenergao.mytest.R;
 import com.listenergao.mytest.activity.Android6NewWidget;
 import com.listenergao.mytest.activity.DownLoadActivity;
 import com.listenergao.mytest.activity.JetPackActivity;
+import com.listenergao.mytest.activity.OptionActivity;
 import com.listenergao.mytest.activity.PopupWindowTest;
 import com.listenergao.mytest.activity.RxJavaTestActivity;
 import com.listenergao.mytest.activity.SettingsActivity;
@@ -52,6 +53,8 @@ public class LeftDrawerFragment extends BaseFragment {
     TextView tvNewWidget;
     @BindView(R.id.tv_activity_RxJava)
     TextView tvActivityRxJava;
+    @BindView(R.id.tv_activity_option)
+    TextView tvActivityOption;
     private MainActivity mainActivity;
 
     @Nullable
@@ -72,49 +75,68 @@ public class LeftDrawerFragment extends BaseFragment {
         mainActivity = (MainActivity) getActivity();
     }
 
-    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download, R.id.tv_test,
-            R.id.tv_activity_anim, R.id.tv_test1, R.id.tv_activity_new_widget,
-            R.id.tv_activity_RxJava, R.id.tv_activity_jetpack})
+    @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download,
+            R.id.tv_test, R.id.tv_activity_anim, R.id.tv_test1, R.id.tv_activity_new_widget,
+            R.id.tv_activity_RxJava, R.id.tv_activity_option})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.settings:     //设置页面
+            case R.id.settings:
+                //设置页面
                 openActivity(SettingsActivity.class);
+                //关闭侧滑菜单
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.about_us:
                 break;
-            case R.id.tv_popupwindow:   //PopupWindow测试页面
+            case R.id.tv_popupwindow:
+                //PopupWindow测试页面
                 openActivity(PopupWindowTest.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
-            case R.id.tv_download:  //断点续传下载
+            case R.id.tv_download:
+                //断点续传下载
                 openActivity(DownLoadActivity.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
-            case R.id.tv_test:  //ListView实现全选
+            case R.id.tv_test:
+                //ListView实现全选
                 openActivity(TestCheckAll.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
-            case R.id.tv_test1:     //ListView实现单选
+            case R.id.tv_test1:
+                //ListView实现单选
                 openActivity(TestCheckOne.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
-            case R.id.tv_activity_anim:     //Fragment测试
+            case R.id.tv_activity_anim:
+                //Fragment测试
                 openActivity(TestFragmentActivity.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
 
-            case R.id.tv_activity_new_widget:   //Android6.0新控件测试
+            case R.id.tv_activity_new_widget:
+                //Android6.0新控件测试
                 openActivity(Android6NewWidget.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
-            case R.id.tv_activity_RxJava:   //RxJava测试
+            case R.id.tv_activity_RxJava:
+                //RxJava测试
                 openActivity(RxJavaTestActivity.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
-
             case R.id.tv_activity_jetpack: //jetpack测试
                 openActivity(JetPackActivity.class);
                 break;
-
+            case R.id.tv_activity_option:
+                // Activity转场动画示例
+                openActivity(OptionActivity.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
+                break;
             default:
                 break;
-
 
         }
         mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);    //关闭侧滑菜单

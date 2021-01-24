@@ -96,6 +96,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.NavigationActivity" />
         </activity>
+        <activity android:name=".activity.OptionActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.OptionActivity" />
+        </activity>
+        <activity android:name=".activity.OptionOneActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.OptionOneActivity" />
+        </activity>
     </application>
 
 </manifest>
