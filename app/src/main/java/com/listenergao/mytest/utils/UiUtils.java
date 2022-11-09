@@ -3,6 +3,7 @@ package com.listenergao.mytest.utils;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.util.Log;
 
 import com.listenergao.mytest.BaseApplication;
@@ -27,6 +28,12 @@ public class UiUtils {
      */
     public static int dip2px(Context context, float dpValue) {
         float scale = context.getResources().getDisplayMetrics().density;
+        Log.d("TAG", "dip2px scale=" + scale);
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    public static int dp2px(float dpValue) {
+        float scale = Resources.getSystem().getDisplayMetrics().density;
         Log.d("TAG", "dip2px scale=" + scale);
         return (int) (dpValue * scale + 0.5f);
     }

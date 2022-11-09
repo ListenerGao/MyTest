@@ -99,6 +99,11 @@
                     style="@style/LeftDrawerFragment_textView"
                     android:text="Activity转场动画" />
 
+                <TextView
+                    android:id="@+id/tv_activity_click_area"
+                    style="@style/LeftDrawerFragment_textView"
+                    android:text="扩大点击区域" />
+
             </LinearLayout>
         </ScrollView>
 

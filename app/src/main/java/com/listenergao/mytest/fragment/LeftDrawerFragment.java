@@ -15,6 +15,7 @@ import com.listenergao.mytest.MainActivity;
 import com.listenergao.mytest.R;
 import com.listenergao.mytest.activity.Android6NewWidget;
 import com.listenergao.mytest.activity.DownLoadActivity;
+import com.listenergao.mytest.activity.ExpandClickAreaActivity;
 import com.listenergao.mytest.activity.JetPackActivity;
 import com.listenergao.mytest.activity.OptionActivity;
 import com.listenergao.mytest.activity.PopupWindowTest;
@@ -77,7 +78,7 @@ public class LeftDrawerFragment extends BaseFragment {
 
     @OnClick({R.id.settings, R.id.about_us, R.id.tv_popupwindow, R.id.tv_download,
             R.id.tv_test, R.id.tv_activity_anim, R.id.tv_test1, R.id.tv_activity_new_widget,
-            R.id.tv_activity_RxJava, R.id.tv_activity_option})
+            R.id.tv_activity_RxJava, R.id.tv_activity_option, R.id.tv_activity_click_area})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.settings:
@@ -135,6 +136,9 @@ public class LeftDrawerFragment extends BaseFragment {
                 openActivity(OptionActivity.class);
                 mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
+            case R.id.tv_activity_click_area:
+                openActivity(ExpandClickAreaActivity.class);
+                mainActivity.drawerLayout.closeDrawer(Gravity.LEFT);
             default:
                 break;
 
