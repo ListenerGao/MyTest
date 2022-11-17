@@ -16,7 +16,7 @@
             android:name="android.max_aspect"
             android:value="2.1" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
