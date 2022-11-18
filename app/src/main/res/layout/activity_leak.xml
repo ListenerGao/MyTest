@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="静态变量" />
+
+    <Button
+        android:id="@+id/btn_variable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="成员变量" />
+
+    <Button
+        android:id="@+id/btn_thread"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="线程对象" />
+
+    <Button
+        android:id="@+id/btn_application"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Application 对象" />
+
+    <Button
+        android:id="@+id/btn_dump"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dump" />
+
+</LinearLayout>
