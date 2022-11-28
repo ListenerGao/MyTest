@@ -1,6 +1,7 @@
 package com.listenergao.mytest;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.os.MessageQueue;
 import android.view.View;
@@ -56,6 +57,31 @@ public class LeakActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         });
+
+        new Thread() {
+            @Override
+            public void run() {
+                // 自线程创建 Handler两种方式：
+                // 一：使用主线程的 Looper
+                // 二：调用 Looper.prepare()、以及 Looper.loop() 方法
+                new Handler(getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+
+                Looper.prepare();
+                // 主线程 Looper
+                Looper mainLooper = Looper.getMainLooper();
+                // 自线程 Looper
+                Looper myLooper = Looper.myLooper();
+                System.out.println("mainLooper:" + mainLooper + ", myLooper:" + myLooper);
+
+
+                Looper.loop();
+            }
+        }.start();
 
     }
 
