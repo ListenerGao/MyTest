@@ -4,8 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.MessageQueue;
 
 import androidx.multidex.MultiDex;
+
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -48,6 +52,18 @@ public class BaseApplication extends Application {
                 }
             }
         });
+
+
+        MessageQueue.IdleHandler handler = new MessageQueue.IdleHandler() {
+
+            @Override
+            public boolean queueIdle() {
+                ToastUtils.showShort("IdleHandler...");
+                LogUtils.d("IdleHandler...");
+                return false;
+            }
+        };
+        Looper.myQueue().addIdleHandler(handler);
     }
 
     /**
