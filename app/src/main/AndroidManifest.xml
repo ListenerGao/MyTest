@@ -111,6 +111,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ExpandClickAreaActivity" />
         </activity>
+        <activity android:name=".loginmvp.LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".loginmvp.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>
